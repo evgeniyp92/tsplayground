@@ -13,5 +13,5 @@ axios_1.default.get(url).then(function (res) {
     logTodo(id, title, completed);
 });
 var logTodo = function (id, title, completed) {
-    console.log("\n\t\tThe todo with ID: ".concat(id, "\n\t\tHas a title of: ").concat(title, "\n\t\tIs it finished? ").concat(completed, "\n\t"));
+    console.log("\n        The Todo with ID: ".concat(id, "\n        Has a title of: ").concat(title, "\n        Is it finished? ").concat(completed, "\n    "));
 };
