@@ -33,9 +33,9 @@ Best to think of TS as a friend that is sitting behind you while you're coding
 
 Set up the compiler by running `npm install -g typescript`
 
-# Application 1 - Fetching JSON (and why we use TypeScript)
+# Course 1 - Fetching JSON (and why we use TypeScript)
 
-We are going to fetch data from an API, create a new project dir, create a 
+We are going to fetch data from an API, create a new project dir, create a
 package.json, set up axios to make a request, and then write the code
 
 ## First pass
@@ -47,28 +47,36 @@ import axios from 'axios';
 
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
-axios.get(url).then(res => {
-    console.log(res.data)
-}).catch(err => {
-    console.log(err)
-})
+axios
+  .get(url)
+  .then((res) => {
+    console.log(res.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 ```
 
 ### what tsc gave us
 
 ```javascript
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var axios_1 = __importDefault(require("axios"));
+'use strict';
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, '__esModule', { value: true });
+var axios_1 = __importDefault(require('axios'));
 var url = 'https://jsonplaceholder.typicode.com/todos/1';
-axios_1.default.get(url).then(function (res) {
+axios_1.default
+  .get(url)
+  .then(function (res) {
     console.log(res.data);
-}).catch(function (err) {
+  })
+  .catch(function (err) {
     console.log(err);
-});
+  });
 ```
 
 ## using ts-node
@@ -82,14 +90,14 @@ import axios from 'axios';
 
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
-axios.get(url).then(res => {
-    const todo = res.data
+axios.get(url).then((res) => {
+  const todo = res.data;
 
-    const ID = todo.id;
-    const title = todo.title;
-    const finished = todo.finished;
+  const ID = todo.id;
+  const title = todo.title;
+  const finished = todo.finished;
 
-    console.log(`
+  console.log(`
         The Todo with ID: ${ID}
         Has a title of: ${title}
         Is it finished? ${finished}
@@ -99,8 +107,8 @@ axios.get(url).then(res => {
 
 Got an undefined for finished
 
-We wrote some code that had a really nasty bug, and we didn't know about it until
-runtime
+We wrote some code that had a really nasty bug, and we didn't know about it
+until runtime
 
 ## Fixing the bugs
 
@@ -115,19 +123,19 @@ import axios from 'axios';
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
 interface Todo {
-    id: number;
-    title: string;
-    completed: boolean;
+  id: number;
+  title: string;
+  completed: boolean;
 }
 
-axios.get(url).then(res => {
-    const todo = res.data as Todo
+axios.get(url).then((res) => {
+  const todo = res.data as Todo;
 
-    const ID = todo.ID;
-    const title = todo.Title;
-    const finished = todo.finished;
+  const ID = todo.ID;
+  const title = todo.Title;
+  const finished = todo.finished;
 
-    console.log(`
+  console.log(`
         The Todo with ID: ${ID}
         Has a title of: ${title}
         Is it finished? ${finished}
@@ -146,19 +154,19 @@ import axios from 'axios';
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
 interface Todo {
-    id: number;
-    title: string;
-    completed: boolean;
+  id: number;
+  title: string;
+  completed: boolean;
 }
 
-axios.get(url).then(res => {
-    const todo = res.data as Todo
+axios.get(url).then((res) => {
+  const todo = res.data as Todo;
 
-    const id = todo.id;
-    const title = todo.title;
-    const completed = todo.completed;
+  const id = todo.id;
+  const title = todo.title;
+  const completed = todo.completed;
 
-    console.log(`
+  console.log(`
         The Todo with ID: ${id}
         Has a title of: ${title}
         Is it finished? ${completed}
@@ -177,28 +185,28 @@ import axios from 'axios';
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
 interface Todo {
-    id: number;
-    title: string;
-    completed: boolean;
+  id: number;
+  title: string;
+  completed: boolean;
 }
 
-axios.get(url).then(res => {
-    const todo = res.data as Todo
+axios.get(url).then((res) => {
+  const todo = res.data as Todo;
 
-    const id = todo.id;
-    const title = todo.title;
-    const completed = todo.completed;
+  const id = todo.id;
+  const title = todo.title;
+  const completed = todo.completed;
 
-    logTodo(id, title, completed);
+  logTodo(id, title, completed);
 });
 
 const logTodo = (id, completed, title) => {
-    console.log(`
+  console.log(`
         The Todo with ID: ${id}
         Has a title of: ${title}
         Is it finished? ${completed}
     `);
-}
+};
 ```
 
 This straight up throws an error
@@ -211,27 +219,425 @@ import axios from 'axios';
 const url = 'https://jsonplaceholder.typicode.com/todos/1';
 
 interface Todo {
-    id: number;
-    title: string;
-    completed: boolean;
+  id: number;
+  title: string;
+  completed: boolean;
 }
 
-axios.get(url).then(res => {
-    const todo = res.data as Todo
+axios.get(url).then((res) => {
+  const todo = res.data as Todo;
 
-    const id = todo.id;
-    const title = todo.title;
-    const completed = todo.completed;
+  const id = todo.id;
+  const title = todo.title;
+  const completed = todo.completed;
 
-    logTodo(id, title, completed);
+  logTodo(id, title, completed);
 });
 
 const logTodo = (id: number, title: string, completed: boolean) => {
-    console.log(`
+  console.log(`
         The Todo with ID: ${id}
         Has a title of: ${title}
         Is it finished? ${completed}
     `);
+};
+```
+
+# Course overview
+
+The purpose of this course is to learn syntax and features of typescript and
+then focus on design patters
+
+Course goals:
+
+1. Understand basic types in TS
+2. Function typing + annotations
+3. Type definition files
+4. Arrays in TS
+5. Modules systems
+6. Classes + OOP
+7. Projects
+
+# Course 2 - Types in TypeScript
+
+## What are types
+
+A type in TS is an easy way to refer to the different properties and functions a
+value has
+
+An array has a type, a function has a type, an object has a type and so on
+
+```javascript
+'red';
+```
+
+the above can be defined as a string, or as a value that has all the properties
+and methods that we assume that a string has
+
+string methods in js:
+
+- charAt()
+- charCodeAt()
+- concat()
+- endsWith()
+- fromCharCode()
+- includes()
+- indexOf()
+- lastIndexOf()
+- localeCompare()
+- match()
+- etc...
+
+listing out all of this manually is a pain, so we just boil it down and say it's
+a string
+
+in some cases types can be non-obvious
+
+interfaces are shortcuts for describing the properties and methods of a type
+
+in Typescript, every value has a type
+
+```javascript
+// examples of strings
+'hi there', '', 'Today is Monday';
+
+// examples of numbers
+0.0000025, -20, 4000000;
+
+// examples of booleans
+true, false;
+
+// date
+new Date();
+
+// Todo
+{
+  id: 1;
+  completed: true;
+  title: 'trash';
 }
 ```
 
+In the world of TS there are two type categories
+
+**Primitives**
+
+- number
+- boolean
+- string
+- undefined
+- null
+- void
+- symbol
+
+and **Objects**
+
+- functions
+- arrays
+- classes
+- objects
+
+objects have a separate category because we can trick TS into thinking one value
+is a different type with object types, which can be used in a good way
+
+## So why care about types?
+
+Types are used by the typescript compiler to catch errors in advance of
+execution, and that is a major benefit of using TS
+
+Types also allow other engineers to understand what values are floating around
+in the codebase
+
+## Examples of types
+
+```typescript
+// implicit type determination
+const today = new Date(); // today has type of Date
+today.getMonth(); // works
+today.bingus(); // error
+
+const person = {
+    age: 20
+}
+
+// person is an object and the key age has a value type of number
+
+class Color {}
+
+const red = new Color(); // red is of type Color
+
+red. // ??? nothing there cause the class is empty
+```
+
+## When to use types
+
+Everywhere!
+
+# Course 3 - Type Annotations and Type Inference
+
+A type annotation is code that describes what type of value a var refers to
+
+Type inference is when TS tries to figure out what type of value a var refers to
+
+In TA we tell TS the type, in TI TS guesses the type
+
+## Annotations with variables
+
+```typescript
+let apples: number = 5; // telling typescript that apples is a number
+apples = 10; // this is allowed
+apples = '10'; // this is not allowed
+
+// type annotations can be used with any kind of value
+
+let speed: string = 'fast';
+speed = 100; // not allowed
+
+let hasName: boolean = true;
+
+// values with a name identical to the type
+let nothingMuch: null = null;
+let nothing: undefined = undefined;
+
+// built in objects
+let now: Date = new Date();
+```
+
+## Annotations with arrays, objects, etc
+
+```typescript
+// Arrays
+// array of strings
+let colors: string[] = ['red', 'green', 'blue'];
+
+// array of numbers
+let myNumbers: number[] = [1, 2, 3];
+
+// array of boolean
+let truths: boolean[] = [true, true, false];
+
+// Classes
+class Car {}
+let car: Car = new Car();
+
+// Object literal
+let point: { x: number; y: number } = {
+  x: 10,
+  y: 20,
+};
+
+// Function
+// receives an argument of i with type of number and returns void(nothing)
+const logNumber: (i: number) => void = (i) => {
+  console.log(i);
+};
+
+const logNumber2: (i: number) => void = function (i) {
+  console.log(i);
+};
+```
+
+## Annotations vs inference
+
+Anytime a variable is made we declare the variable and initialize the variable
+
+With type inference, if you immediately assign a value to a variable TS will
+successfully infer what data type the value has
+
+## When to use type annotation
+
+- When we declare a variable and initialize it separately
+- When we want a variable to have a type that can't be inferred
+- When a function returns any type, and we need to clarify the value
+
+```javascript
+// When to use annotations
+// 1) Function that returns the 'any' type
+const json = '{"x": 10, "y": 20}';
+const coordinates = JSON.parse(json); // type of any
+const coordinatesObject: Object = JSON.parse(json); // type of object
+const coordinatesAnnotated: { x: number, y: number } = JSON.parse(json);
+
+// in functions like JSON.parse where the return can be a lot of types, TS
+// cannot predict that. If you see the 'any' type it means TS has no idea what
+// is going to return. Any is still a type, but it has no property refs, so it
+// does not make sense to use this in TS
+
+coordinates.bingus(); // TS has no idea what type is, so it will not do anything
+
+// 2) When we declare a variable on one line and init it later
+let words = ['red', 'green', 'blue'];
+// let foundWord // has any type
+let foundWord: boolean;
+
+for (let i = 0; i < words.length; i++) {
+  if (words[i] === 'green') {
+    foundWord = true;
+  }
+}
+
+// 3) Variables when the type can't be reasonably inferred
+let numbers = [-10, -1, 12];
+let numberAboveZero: boolean | number = false; // false if nothing found, number if something found
+
+for (let i = 0; i < numbers.length; i++) {
+  if (numbers[i] > 0) {
+    numberAboveZero = numbers[i];
+  }
+}
+```
+
+## Function type annotations
+
+Function type annotations help Typescript tell what type of args a function
+receives and what type of values it will return
+
+Type inference allows TS to try to guess what a function will return, and does
+not attempt to figure out what type of value arguments are
+
+```typescript
+// annotating the argument types and the return type
+const add = (a: number, b: number): number => {
+  return a + b;
+};
+```
+
+TS only validates types, not logic
+
+TS won't complain if you return `a - b` in the above function
+
+TS can read function bodies and guess at what the return value from a function
+is
+
+But it always helps to annotate anyway because it's a good way to ensure you
+have consistent returns
+
+### Alternate syntax for functions
+
+```typescript
+const add = (a: number, b: number) => {
+  return a + b;
+};
+
+const subtract = (a: number, b: number): number => a + b;
+
+function divide(a: number, b: number): number {
+  return a / b;
+}
+
+const multiply = function (a: number, b: number): number {
+  return a * b;
+};
+```
+
+### The void return type
+
+`void` means the function doesnt return anything
+
+it can however return null or undefined
+
+will throw an error if you try to return something
+
+`never` means the function will not ever get to the end
+
+### Annotating destructuring
+
+```typescript
+const todaysWeather = {
+  date: new Date(),
+  weather: 'sunny',
+};
+
+// const logWeather = (forecast: { date: Date; weather: string }): void => {
+//   console.log(forecast.date);
+//   console.log(forecast.weather);
+// };
+
+const logWeather = ({
+  date,
+  weather,
+}: {
+  date: Date;
+  weather: string;
+}): void => {
+  console.log(date);
+  console.log(weather);
+};
+
+logWeather(todaysWeather);
+```
+
+## Annotations with objects
+
+```typescript
+const profile = {
+  name: "alex",
+  age: 20,
+  coords: {
+    lat: 0,
+    lng: 15,
+  },
+
+  setAge(age: number): void {
+    this.age = age;
+  },
+};
+
+// const age = profile.age;
+// with destructuring you still have to write out the expected structure of arg
+const { age }: { age: number } = profile;
+const {
+  coords: { lat, lng },
+}: { coords: { lat: number; lng: number } } = profile;
+```
+
+# Course 4 - Typed Arrays
+
+Typed arrays are arrays where each element is some consistent type of value
+
+Arrays are generally one-type, but there is also a specific way to add multiple
+
+## Examples
+
+```typescript
+// automatically infers that carMakers is an array of strings
+const carMakers = ["ford", "toyota", "chevy"];
+
+// initialized but has no values inside so type is any[]
+const carMakers2 = [];
+
+// inference works for complex init as well
+const dates = [new Date(), new Date()];
+
+// infers that this is a 2d array (string[][])
+const carsByMake = [["f150"], ["corolla"], ["camaro"]];
+```
+
+## Why care?
+
+```typescript
+// Help with inference while extracting values
+const vehicle = carMakers[0]; // vehicle is implicitly string
+const myCar = carMakers.pop(); // myCar is implicitly string or undef
+
+// Prevents incompatible values
+carMakers.push(100); // throws an error
+
+// Lots of help with prototype methods
+carMakers.map((car: string): string => {
+  return car;
+});
+
+// Flexible -- can put different types inside the arrays
+const importantDates: (string | Date)[] = [];
+importantDates.push("2030-10-10");
+importantDates.push(new Date());
+importantDates.push(100); // wont chooch
+```
+
+## When to use?
+
+Use any time you want to present a collection of records with some arbitrary
+sort order
+
+# Course 5 - Tuples
