@@ -29,3 +29,4 @@ const importantDates: (string | Date)[] = [];
 importantDates.push("2030-10-10");
 importantDates.push(new Date());
 importantDates.push(100); // wont chooch
+

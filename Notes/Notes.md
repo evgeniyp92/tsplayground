@@ -12,7 +12,7 @@ development
 
 Important to note TS does not offer any meaningful performance optimization
 
-## How the course will go
+### How the course will go
 
 We will write some TS code
 
@@ -21,7 +21,7 @@ raw js
 
 Once we have the raw js we will execute that in Node/Browser
 
-## In short...
+### In short
 
 Writing TS is just like writing JS with extra documentation
 
@@ -29,18 +29,18 @@ TS has no effect on how code gets run by the browser or by node
 
 Best to think of TS as a friend that is sitting behind you while you're coding
 
-## Setting up the typescript compiler
+### Setting up the typescript compiler
 
 Set up the compiler by running `npm install -g typescript`
 
-# Course 1 - Fetching JSON (and why we use TypeScript)
+## Course 1 - Fetching JSON (and why we use TypeScript)
 
 We are going to fetch data from an API, create a new project dir, create a
 package.json, set up axios to make a request, and then write the code
 
-## First pass
+### First pass
 
-### what we wrote
+#### what we wrote
 
 ```typescript
 import axios from 'axios';
@@ -57,7 +57,7 @@ axios
   });
 ```
 
-### what tsc gave us
+#### what tsc gave us
 
 ```javascript
 'use strict';
@@ -79,11 +79,11 @@ axios_1.default
   });
 ```
 
-## using ts-node
+### using ts-node
 
 TS-Node automatically compiles and runs the code we write
 
-## Rewriting the code
+### Rewriting the code
 
 ```typescript
 import axios from 'axios';
@@ -110,7 +110,7 @@ Got an undefined for finished
 We wrote some code that had a really nasty bug, and we didn't know about it
 until runtime
 
-## Fixing the bugs
+### Fixing the bugs
 
 Wouldn't it be nice if we had a comment that outlined what properties `res.data`
 would have? Well that's exactly what we're going to do by defining an interface
@@ -177,7 +177,7 @@ axios.get(url).then((res) => {
 Ultimately, the point of TS is to catch errors in development and get feedback
 as we are writing our code
 
-## Refactoring the script
+### Refactoring the script
 
 ```typescript
 import axios from 'axios';
@@ -211,7 +211,7 @@ const logTodo = (id, completed, title) => {
 
 This straight up throws an error
 
-## Fixing the refactor with type annotations
+### Fixing the refactor with type annotations
 
 ```typescript
 import axios from 'axios';
@@ -243,7 +243,7 @@ const logTodo = (id: number, title: string, completed: boolean) => {
 };
 ```
 
-# Course overview
+## Course overview
 
 The purpose of this course is to learn syntax and features of typescript and
 then focus on design patters
@@ -258,9 +258,9 @@ Course goals:
 6. Classes + OOP
 7. Projects
 
-# Course 2 - Types in TypeScript
+## Course 2 - Types in TypeScript
 
-## What are types
+### What are types
 
 A type in TS is an easy way to refer to the different properties and functions a
 value has
@@ -320,7 +320,7 @@ new Date();
 
 In the world of TS there are two type categories
 
-**Primitives**
+First, **Primitives**
 
 - number
 - boolean
@@ -340,7 +340,7 @@ and **Objects**
 objects have a separate category because we can trick TS into thinking one value
 is a different type with object types, which can be used in a good way
 
-## So why care about types?
+### So why care about types?
 
 Types are used by the typescript compiler to catch errors in advance of
 execution, and that is a major benefit of using TS
@@ -348,7 +348,7 @@ execution, and that is a major benefit of using TS
 Types also allow other engineers to understand what values are floating around
 in the codebase
 
-## Examples of types
+### Examples of types
 
 ```typescript
 // implicit type determination
@@ -369,11 +369,11 @@ const red = new Color(); // red is of type Color
 red. // ??? nothing there cause the class is empty
 ```
 
-## When to use types
+### When to use types
 
 Everywhere!
 
-# Course 3 - Type Annotations and Type Inference
+## Course 3 - Type Annotations and Type Inference
 
 A type annotation is code that describes what type of value a var refers to
 
@@ -381,7 +381,7 @@ Type inference is when TS tries to figure out what type of value a var refers to
 
 In TA we tell TS the type, in TI TS guesses the type
 
-## Annotations with variables
+### Annotations with variables
 
 ```typescript
 let apples: number = 5; // telling typescript that apples is a number
@@ -403,7 +403,7 @@ let nothing: undefined = undefined;
 let now: Date = new Date();
 ```
 
-## Annotations with arrays, objects, etc
+### Annotations with arrays, objects, etc
 
 ```typescript
 // Arrays
@@ -437,14 +437,14 @@ const logNumber2: (i: number) => void = function (i) {
 };
 ```
 
-## Annotations vs inference
+### Annotations vs inference
 
 Anytime a variable is made we declare the variable and initialize the variable
 
 With type inference, if you immediately assign a value to a variable TS will
 successfully infer what data type the value has
 
-## When to use type annotation
+### When to use type annotation
 
 - When we declare a variable and initialize it separately
 - When we want a variable to have a type that can't be inferred
@@ -487,7 +487,7 @@ for (let i = 0; i < numbers.length; i++) {
 }
 ```
 
-## Function type annotations
+### Function type annotations
 
 Function type annotations help Typescript tell what type of args a function
 receives and what type of values it will return
@@ -512,7 +512,7 @@ is
 But it always helps to annotate anyway because it's a good way to ensure you
 have consistent returns
 
-### Alternate syntax for functions
+#### Alternate syntax for functions
 
 ```typescript
 const add = (a: number, b: number) => {
@@ -530,7 +530,7 @@ const multiply = function (a: number, b: number): number {
 };
 ```
 
-### The void return type
+#### The void return type
 
 `void` means the function doesnt return anything
 
@@ -540,7 +540,7 @@ will throw an error if you try to return something
 
 `never` means the function will not ever get to the end
 
-### Annotating destructuring
+#### Annotating destructuring
 
 ```typescript
 const todaysWeather = {
@@ -567,11 +567,11 @@ const logWeather = ({
 logWeather(todaysWeather);
 ```
 
-## Annotations with objects
+### Annotations with objects
 
 ```typescript
 const profile = {
-  name: "alex",
+  name: 'alex',
   age: 20,
   coords: {
     lat: 0,
@@ -591,17 +591,17 @@ const {
 }: { coords: { lat: number; lng: number } } = profile;
 ```
 
-# Course 4 - Typed Arrays
+## Course 4 - Typed Arrays
 
 Typed arrays are arrays where each element is some consistent type of value
 
 Arrays are generally one-type, but there is also a specific way to add multiple
 
-## Examples
+### Examples
 
 ```typescript
 // automatically infers that carMakers is an array of strings
-const carMakers = ["ford", "toyota", "chevy"];
+const carMakers = ['ford', 'toyota', 'chevy'];
 
 // initialized but has no values inside so type is any[]
 const carMakers2 = [];
@@ -610,10 +610,10 @@ const carMakers2 = [];
 const dates = [new Date(), new Date()];
 
 // infers that this is a 2d array (string[][])
-const carsByMake = [["f150"], ["corolla"], ["camaro"]];
+const carsByMake = [['f150'], ['corolla'], ['camaro']];
 ```
 
-## Why care?
+### Why care?
 
 ```typescript
 // Help with inference while extracting values
@@ -630,14 +630,460 @@ carMakers.map((car: string): string => {
 
 // Flexible -- can put different types inside the arrays
 const importantDates: (string | Date)[] = [];
-importantDates.push("2030-10-10");
+importantDates.push('2030-10-10');
 importantDates.push(new Date());
 importantDates.push(100); // wont chooch
 ```
 
-## When to use?
+### When to use?
 
 Use any time you want to present a collection of records with some arbitrary
 sort order
 
-# Course 5 - Tuples
+## Course 5 - Tuples
+
+### What's a tuple
+
+Tuples are array-like structures where each element represents some property of
+a record
+
+Tuples usually contain multiple properties to describe a single thing
+
+Tuples also mix and match multiple data types
+
+An object representing a drink could have a property of 'brown', a carbonated
+value of 'true', and a sugar content of '40'
+
+Object representation
+
+```json
+{
+  "color": "brown",
+  "carbonated": true,
+  "sugar": 40
+}
+```
+
+Array representation
+
+```js
+['brown', true, 40];
+```
+
+In this case we would have to remember the sequence of properties, so the
+self-labeling aspect of objects is lost
+
+Ordering in a tuple is really critical
+
+### Tuples in use
+
+```typescript
+const drink = {
+  color: 'brown',
+  carbonated: true,
+  sugar: 40,
+};
+
+// type aliasing
+type Drink = [string, boolean, number];
+
+const pepsi = ['brown', true, 65]; // this has type of array!
+const bepis: [string, boolean, number] = ['brown', false, 70]; // an tuple
+const blopsi: Drink = ['brown', false, 70]; // an tuple with type aliasing
+```
+
+### Why use tuples
+
+Tuples are very handy for working with csv
+
+But the lack of descriptiveness is a major issue
+
+```typescript
+const carSpecs: [number, number] = [400, 3354]; // what are these number supposed to mean??
+```
+
+Object format is far better for code being self-documenting and understandable
+
+## Course 6 - Interfaces
+
+### What
+
+Interfaces and Classes are how we get really strong code reuse in TS, so they
+are important to get a good handle on
+
+An interface creates a new type, describing the property names and value types
+of an object
+
+### Interface examples
+
+```typescript
+// defining an object representing a car
+
+const oldCivic = {
+  name: 'civic',
+  year: 2000,
+  broken: true,
+};
+
+const printVehicle = (vehicle: {
+  name: string;
+  year: number;
+  broken: boolean;
+}): void => {
+  console.log(`Name: ${vehicle.name}`);
+  console.log(`Year: ${vehicle.year}`);
+  console.log(`Broken: ${vehicle.broken}`);
+};
+
+printVehicle(oldCivic);
+```
+
+reworking it with an interface
+
+```typescript
+interface Vehicle {
+  name: string;
+  year: number;
+  broken: boolean;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: 2000,
+  broken: true,
+};
+
+const printVehicle = (vehicle: Vehicle): void => {
+  console.log(`Name: ${vehicle.name}`);
+  console.log(`Year: ${vehicle.year}`);
+  console.log(`Broken: ${vehicle.broken}`);
+};
+
+printVehicle(oldCivic);
+```
+
+We are not limited to expressing primitives in an interface
+
+```ts
+interface Vehicle {
+  name: string;
+  // we can use any type we want in interfaces
+  year: Date;
+  broken: boolean;
+  // anything that wants to be a vehicle must have a function that prints a summary
+  summary(): string;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: new Date('2000-01-01'),
+  broken: true,
+  summary() {
+    return `Name: ${this.name}`;
+  },
+};
+
+const printVehicle = (vehicle: Vehicle): void => {
+  console.log(vehicle.summary());
+};
+
+printVehicle(oldCivic);
+```
+
+Interfaces are not exhaustive listings of properties but a list of mandatory
+requirements
+
+```ts
+interface Vehicle {
+  summary(): string;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: new Date('2000-01-01'),
+  broken: true,
+  summary() {
+    return `Name: ${this.name}`;
+  },
+};
+
+const printVehicle = (vehicle: Vehicle): void => {
+  console.log(vehicle.summary());
+};
+
+printVehicle(oldCivic);
+```
+
+It's important to have descriptive and clear names for interfaces that
+accurately describe the point of an interface
+
+Refactoring and genericizing
+
+```ts
+interface Reportable {
+  summary(): string;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: new Date('2000-01-01'),
+  broken: true,
+  summary() {
+    return `Name: ${this.name}`;
+  },
+};
+
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
+};
+
+printSummary(oldCivic);
+```
+
+### Why its important to use interfaces for code reuse
+
+Interfaces let us specify mandatory requirements for data in a generic way
+
+They are useful to shape data when it is passed to functions and to ensure it
+functions properly
+
+```ts
+interface Reportable {
+  summary(): string;
+}
+
+const oldCivic = {
+  name: 'civic',
+  year: new Date('2000-01-01'),
+  broken: true,
+  summary() {
+    return `Name: ${this.name}`;
+  },
+};
+
+const boopsi = {
+  color: 'brown',
+  carbonated: true,
+  sugar: 40,
+  summary() {
+    return `My drink has ${this.sugar} grams of sugar`;
+  },
+};
+
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
+};
+
+// both oldCivic and boopsi can be used with printSummary
+printSummary(oldCivic);
+printSummary(boopsi);
+```
+
+### Summary
+
+in our code, we have a function that prints a summary. The reportable interface
+acts as a gatekeeper to `printSummary`. our objects must satisfy the
+`Reportable` interface to work with `printSummary`
+
+**The core strategy of our TS code is that we will create function that accept
+arguments that are typed with interfaces**
+
+**Objects and classes can decide to implement a given interface to work with a
+function**
+
+## Course 7 - Classes
+
+### What are classes
+
+Classes are blueprints to create objects with some fields and methods to
+represent a 'thing'
+
+First we will understand the methods part then the fields part
+
+```ts
+class Vehicle {
+  drive(): void {
+    console.log(`Vroom`);
+  }
+
+  honk(): void {
+    console.log(`Beep`);
+  }
+}
+
+const vroomer = new Vehicle();
+
+vroomer.drive();
+vroomer.honk();
+```
+
+These look a lot like regular ES6 classes but TS classes are kind of different
+
+### Basic inheritance
+
+```ts
+class Vehicle {
+  drive(): void {
+    console.log(`Vroom`);
+  }
+
+  honk(): void {
+    console.log(`Beep`);
+  }
+}
+
+class Machine extends Vehicle {
+  // when extending we can choose to override the parent class methods
+  drive(): void {
+    console.log(`Vroom Vroom`);
+  }
+}
+
+const vroomer = new Machine();
+
+vroomer.drive();
+vroomer.honk();
+```
+
+### Difference between ES6 and TS classes
+
+#### Modifiers
+
+We can place certain modifiers onto our classes
+
+- Public - can be called anywhere, anytime
+- Private - can only be called by other methods in the class
+- Protected - can be called by other methods or by methods in child classes
+
+All methods are assumed to be public by default
+
+Defining methods as private is to restrict methods other devs can call, not as a
+security measure
+
+```ts
+class Vehicle {
+  protected honk(): void {
+    console.log(`Beep`);
+  }
+}
+
+class Machine extends Vehicle {
+  // when extending we can choose to override the parent class methods
+  private drive(): void {
+    console.log(`Vroom Vroom`);
+  }
+
+  startDrivingProcess(): void {
+    this.drive();
+    this.honk();
+  }
+}
+
+const vroomer = new Machine();
+
+vroomer.startDrivingProcess();
+```
+
+### Handling data in classes
+
+```ts
+class Vehicle {
+  color: string;
+
+  // initialize in constructor
+  constructor(color: string) {
+    this.color = color;
+  }
+
+  protected honk(): void {
+    console.log(`Beep`);
+  }
+}
+
+const vehicle = new Vehicle('orange');
+console.log(vehicle.color);
+
+class Machine extends Vehicle {
+  // when extending we can choose to override the parent class methods
+  private drive(): void {
+    console.log(`Vroom Vroom`);
+  }
+
+  startDrivingProcess(): void {
+    this.drive();
+    this.honk();
+  }
+}
+
+// const vroomer = new Machine();
+
+// vroomer.startDrivingProcess();
+```
+
+#### Shorthand to init instance variables
+
+```ts
+class Vehicle {
+  // shorthand to init instance variables
+  constructor(public color: string) {}
+
+  protected honk(): void {
+    console.log(`Beep`);
+  }
+}
+```
+
+Important to note that **Modifiers also extend to fields**
+
+### How fields work with inheritance
+
+Typescript automatically runs constructors of parent classes when you init data
+
+If you have a constructor in the child you must call the parent's constructor in
+the child constructor with `super`
+
+```ts
+class Vehicle {
+  // shorthand to init instance variables
+  constructor(public color: string) {}
+
+  protected honk(): void {
+    console.log(`Beep`);
+  }
+}
+
+const vehicle = new Vehicle('orange');
+console.log(vehicle.color);
+
+class Machine extends Vehicle {
+  constructor(public wheels: number, color: string) {
+    super(color);
+  }
+
+  // when extending we can choose to override the parent class methods
+  private drive(): void {
+    console.log(`Vroom Vroom`);
+  }
+
+  startDrivingProcess(): void {
+    this.drive();
+    this.honk();
+  }
+}
+
+const vroomer = new Machine(4, 'red');
+vroomer.startDrivingProcess();
+```
+
+### Why care and where to use
+
+Interfaces and classes are how we get really strong code reuse in TS
+
+Classes will be used in tandem with interfaces
+
+## Application 1 - Using classes and interfaces in a basic app
+
+First app wiwll be a basic web app that will randomly generate a user/company
+and show them on a map
+
+_installed parcel-bundler globally here_
