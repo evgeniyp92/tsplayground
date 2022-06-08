@@ -1087,3 +1087,27 @@ First app wiwll be a basic web app that will randomly generate a user/company
 and show them on a map
 
 _installed parcel-bundler globally here_
+
+ran parcel with `parcel-bundler index.html`
+
+classes in TS projects are written with a capital letter
+
+(using fakerjs to automatically generate the data)
+
+for making use of types use the Definitely Typed naming scheme
+
+convention inside of TS is to never use default export statements
+
+you can peruse the types and the data they return as an alternate source of docs
+
+google maps is utilized for this project and we need to install types for it
+because without types TS is going to get really upset and not be happy at all
+
+`npm install @types/google.maps`
+
+this will tell TS there will be a global variable called google and what it does
+
+we also have to write a triple slash directive
+
+half of the power of typescript is the increased transparency into how libraries
+work and what data they need to work and the inner choochings of it all
