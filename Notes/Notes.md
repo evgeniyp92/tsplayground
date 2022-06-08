@@ -1126,7 +1126,7 @@ This way no unwanted methods are exposed
 
 ### Adding markers
 
-Bad code for creating markers
+#### Bad code for creating markers
 
 ```ts
 import { User } from './User';
@@ -1191,7 +1191,14 @@ It also very tightly couples all our classes to the map
   }
 ```
 
-Good code for creating markers
+#### Good code for creating markers
+
+instead of CustomMap accomodating all of the edge cases, we will force the
+classes to play nice with CustomMap
+
+We're going to provide instructions on how other classes can play nice with our
+class. Classes can opt into being mappable, rather than our mapping function
+having to accomodating everything
 
 In TS classes have a dual nature. They can be used to instantiate, as well as
 refer to a type
