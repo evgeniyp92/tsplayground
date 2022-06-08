@@ -1111,3 +1111,15 @@ we also have to write a triple slash directive
 
 half of the power of typescript is the increased transparency into how libraries
 work and what data they need to work and the inner choochings of it all
+
+### Hiding functionality
+
+Because map has a lot of methods attached to it other engineers may use the
+application in ways that will break it
+
+So hiding functionality is a good practice to employ from the start
+
+In the case of the project we want to only limit interaction to making a new map
+and adding a marker
+
+This way no unwanted methods are exposed
