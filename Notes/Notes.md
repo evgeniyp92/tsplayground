@@ -1286,3 +1286,111 @@ are swapped. After the first pass, the largest element is guaranteed to be at
 the end and you ignore it from then on.
 
 ### Writing a bubble sort that only works for numbers
+
+```ts
+class Sorter {
+  constructor(public collection: number[]) {}
+
+  public sort(): void {
+    const { length } = this.collection;
+
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length - i - 1; j++) {
+        if (this.collection[j] > this.collection[j + 1]) {
+          const leftHand = this.collection[j];
+          this.collection[j] = this.collection[j + 1];
+          this.collection[j + 1] = leftHand;
+        }
+      }
+    }
+  }
+}
+
+const sorter = new Sorter([10, 3, -5, 0]);
+sorter.sort();
+console.log(sorter.collection);
+```
+
+### Converting the bubble sorter to be more abstract
+
+charcodes mean our previous implementation does not work as we expect
+
+also strings are immutable, so we cannot do character assignment to a string
+
+#### Bad approach
+
+In the bad approach we create a union between an array of numbers and a string
+for types. The issue with that is Typescript looks at the commonalities of
+features between number arrays and strings, and realizes there is almost no
+commonality, except for reading values. This is going to get even worse when we
+add linked lists into the mix
+
+```ts
+class Sorter {
+  constructor(public collection: number[] | string) {}
+
+  public sort(): void {
+    const { length } = this.collection;
+
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length - i - 1; j++) {
+        // If collection is array of numbers
+        if (this.collection[j] > this.collection[j + 1]) {
+          const leftHand = this.collection[j];
+          this.collection[j] = this.collection[j + 1];
+          this.collection[j + 1] = leftHand;
+        }
+
+        // If collection is array of strings
+        // Do this here instead
+      }
+    }
+  }
+}
+
+const sorter = new Sorter([10, 3, -5, 0]);
+sorter.sort();
+console.log(sorter.collection);
+```
+
+#### Implementing type guards
+
+```ts
+class Sorter {
+  constructor(public collection: number[] | string) {}
+
+  public sort(): void {
+    const { length } = this.collection;
+
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length - i - 1; j++) {
+        // Only going to work if collection is number[]
+        // If collection is array of numbers
+        if (this.collection instanceof Array) {
+          if (this.collection[j] > this.collection[j + 1]) {
+            const leftHand = this.collection[j];
+            this.collection[j] = this.collection[j + 1];
+            this.collection[j + 1] = leftHand;
+          }
+        }
+
+        // Only works if collection is string
+        // If collection is array of strings
+        // Do this here instead
+        if (typeof this.collection === 'string') {
+        }
+      }
+    }
+  }
+}
+
+const sorter = new Sorter([10, 3, -5, 0]);
+sorter.sort();
+console.log(sorter.collection);
+```
+
+- Use typeof for primitives, and instanceof for values created with a
+  constructor
+
+The above implementation is bad because, again, as the list of things to sort
+grows we have to cover off more edge cases
