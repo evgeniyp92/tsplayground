@@ -1172,6 +1172,25 @@ export class CustomMap {
 }
 ```
 
+An intermediate step -- defining two acceptable classes for an argument is not
+desirable. As our hypothetical number of types to map grows this quickly grows
+out of control.
+
+It also very tightly couples all our classes to the map
+
+```ts
+// don't do this
+  public addMarker(mappable: User | Company): void {
+    new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
+      },
+    });
+  }
+```
+
 Good code for creating markers
 
 In TS classes have a dual nature. They can be used to instantiate, as well as

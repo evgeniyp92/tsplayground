@@ -21675,25 +21675,14 @@ function () {
         lng: 0
       }
     });
-  } // bad code >:(
+  }
 
-
-  CustomMap.prototype.addUserMarker = function (user) {
+  CustomMap.prototype.addMarker = function (mappable) {
     new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: user.location.lat,
-        lng: user.location.lng
-      }
-    });
-  };
-
-  CustomMap.prototype.addCompanyMarker = function (company) {
-    new google.maps.Marker({
-      map: this.googleMap,
-      position: {
-        lat: company.location.lat,
-        lng: company.location.lng
+        lat: mappable.location.lat,
+        lng: mappable.location.lng
       }
     });
   };
