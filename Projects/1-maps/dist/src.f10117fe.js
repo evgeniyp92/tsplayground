@@ -21618,6 +21618,7 @@ var User =
 /** @class */
 function () {
   function User() {
+    this.color = 'red';
     this.name = faker_1.faker.name.firstName();
     this.location = {
       lat: parseFloat(faker_1.faker.address.latitude()),
@@ -21647,6 +21648,7 @@ var Company =
 /** @class */
 function () {
   function Company() {
+    this.color = 'blue';
     this.companyName = faker_1.faker.company.companyName();
     this.catchPhrase = faker_1.faker.company.catchPhrase(); // cannot init a key value pair of an object by itself
 

@@ -1240,3 +1240,30 @@ export class CustomMap {
 
 In TS classes have a dual nature. They can be used to instantiate, as well as
 refer to a type
+
+interfaces can be exported and referred to as a separate type
+
+```ts
+import { faker } from '@faker-js/faker';
+import { Mappable } from './CustomMap';
+
+export class User implements Mappable {
+  name: string;
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.name = faker.name.firstName();
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.longitude()),
+    };
+  }
+
+  markerContent(): string {
+    return `User name is ${this.name}`;
+  }
+}
+```
