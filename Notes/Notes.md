@@ -1200,5 +1200,43 @@ We're going to provide instructions on how other classes can play nice with our
 class. Classes can opt into being mappable, rather than our mapping function
 having to accomodating everything
 
+```ts
+// instructions to every other class on how they can be an argument to 'addMarker'
+interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+}
+
+export class CustomMap {
+  // marking this as private makes it so nobody can access methods but us
+  private googleMap: google.maps.Map;
+
+  constructor(divID: string) {
+    this.googleMap = new google.maps.Map(
+      document.getElementById(divID) as HTMLElement,
+      {
+        zoom: 1,
+        center: {
+          lat: 0,
+          lng: 0,
+        },
+      }
+    );
+  }
+
+  public addMarker(mappable: Mappable): void {
+    new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
+      },
+    });
+  }
+}
+```
+
 In TS classes have a dual nature. They can be used to instantiate, as well as
 refer to a type
