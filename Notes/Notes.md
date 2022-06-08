@@ -1123,3 +1123,12 @@ In the case of the project we want to only limit interaction to making a new map
 and adding a marker
 
 This way no unwanted methods are exposed
+
+### Adding markers
+
+Bad code for creating markers
+
+Good code for creating markers
+
+In TS classes have a dual nature. They can be used to instantiate, as well as
+refer to a type
