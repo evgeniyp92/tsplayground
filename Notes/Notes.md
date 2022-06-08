@@ -1269,3 +1269,20 @@ export class User implements Mappable {
 ```
 
 Project 1 Done!
+
+## Project 2 - Sorter
+
+We're going to have 3 different data structures to sort, but we're going to
+write only one sorter function
+
+- Set up tsconfig and entered into watch mode
+- Installed nodemon and concurrently
+
+### Bubble sort and how it chooches
+
+Bubble sort is a double-nested for loop that will iterate several times. For
+every iteration it will compare adjacent elements. If left > right, the elements
+are swapped. After the first pass, the largest element is guaranteed to be at
+the end and you ignore it from then on.
+
+### Writing a bubble sort that only works for numbers
