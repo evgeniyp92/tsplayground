@@ -1911,3 +1911,74 @@ export class CsvFileReader {
   }
 }
 ```
+
+##### Generics and how to use them
+
+- Generics are like func arguments but for types in class/func definitions
+- Allows us to define the type of a property/arg/return at a future point
+- Used heavily to write reusable code
+
+```ts
+// Nothing to do with generics
+const addOne = (a: number): number => {
+  return a + 1;
+};
+const addTwo = (a: number): number => {
+  return a + 2;
+};
+
+const add = (a: number, b: number): number => {
+  return a + b;
+};
+
+// Generics
+// Silly and goofy
+class HoldNumber {
+  data: number;
+}
+class HoldString {
+  data: string;
+}
+
+const holdNumber = new HoldNumber();
+const holdString = new HoldString();
+holdNumber.data = 123;
+holdString.data = '123';
+
+// Not silly and goofy
+class HoldAnything<TypeOfData> {
+  data: TypeOfData;
+}
+
+const holdNumber2 = new HoldAnything<number>();
+const holdString2 = new HoldAnything<string>();
+holdNumber2.data = 123;
+holdString2.data = 'data';
+
+// Treat generics like function arguments
+```
+
+```ts
+import fs from 'fs';
+import { MatchResult } from './MatchResult';
+
+type MatchData = [Date, string, string, number, number, MatchResult, string];
+
+export abstract class CsvFileReader<T> {
+  data: T[] = [];
+
+  constructor(public filename: string) {}
+
+  abstract mapRow(row: string[]): T;
+
+  public read(): void {
+    this.data = fs
+      .readFileSync(this.filename, {
+        encoding: 'utf-8',
+      })
+      .split('\n')
+      .map((row: string): string[] => row.split(','))
+      .map(this.mapRow);
+  }
+}
+```
