@@ -1317,7 +1317,7 @@ charcodes mean our previous implementation does not work as we expect
 
 also strings are immutable, so we cannot do character assignment to a string
 
-#### Bad approach
+#### Bad approach (with unions)
 
 In the bad approach we create a union between an array of numbers and a string
 for types. The issue with that is Typescript looks at the commonalities of
@@ -1394,3 +1394,9 @@ console.log(sorter.collection);
 
 The above implementation is bad because, again, as the list of things to sort
 grows we have to cover off more edge cases
+
+Depending on the type of data we're sorting we need different compare and swap
+operations
+
+Intermediate solution is to extract swapping and comparison logic to a separate
+class
