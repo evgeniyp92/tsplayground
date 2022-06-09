@@ -1658,3 +1658,19 @@ export abstract class Sorter {
   }
 }
 ```
+
+### Interfaces vs Abstract classes
+
+Strictly speaking we no longer need the interface in the project
+
+Interfaces:
+
+- Set up a contract between different classes
+- Are used when we have different objects that we want to work together
+- Promotes loose coupling
+
+Inheritance/Abstract Classes:
+
+- Sets up a contract between different classes
+- Use when we are trying to build up a definition of an object
+- Strongly couples classes together
