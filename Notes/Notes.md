@@ -1832,3 +1832,82 @@ export class CsvFileReader {
 ```
 
 #### Describing the row as a tuple
+
+```ts
+import fs from 'fs';
+import { dateStringToDate } from './utils';
+import { MatchResult } from './MatchResult';
+
+type MatchData = [Date, string, string, number, number, MatchResult, string];
+
+export class CsvFileReader {
+  data: MatchData[] = [];
+
+  constructor(public filename: string) {}
+
+  public read(): void {
+    this.data = fs
+      .readFileSync(this.filename, {
+        encoding: 'utf-8',
+      })
+      .split('\n')
+      .map((row: string): string[] => row.split(','))
+      .map((row: string[]): MatchData => {
+        return [
+          dateStringToDate(row[0]),
+          row[1],
+          row[2],
+          parseInt(row[3]),
+          parseInt(row[4]),
+          // asserting that row[5] is of type MatchResult
+          row[5] as MatchResult,
+          row[6],
+        ];
+      });
+  }
+}
+```
+
+This file reader has actually become bad as a consequence of how we've built it
+up
+
+There are two approaches to refactoring this
+
+#### Refactor #1 - Making a child class out of the match reading portion
+
+```ts
+import fs from 'fs';
+import { dateStringToDate } from './utils';
+import { MatchResult } from './MatchResult';
+
+type MatchData = [Date, string, string, number, number, MatchResult, string];
+
+export class CsvFileReader {
+  data: MatchData[] = [];
+
+  constructor(public filename: string) {}
+
+  public read(): void {
+    this.data = fs
+      .readFileSync(this.filename, {
+        encoding: 'utf-8',
+      })
+      .split('\n')
+      .map((row: string): string[] => row.split(','))
+      .map(this.mapRow);
+  }
+
+  private mapRow(row: string[]): MatchData {
+    return [
+      dateStringToDate(row[0]),
+      row[1],
+      row[2],
+      parseInt(row[3]),
+      parseInt(row[4]),
+      // asserting that row[5] is of type MatchResult
+      row[5] as MatchResult,
+      row[6],
+    ];
+  }
+}
+```
