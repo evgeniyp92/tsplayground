@@ -1611,3 +1611,50 @@ export class LinkedList implements SortableCollection {
   }
 }
 ```
+
+### Sort Method Integration
+
+The solution is to use classic inheritance - take all the methods of sorter and
+add to target class
+
+The issue emerges when we try to reference properties and methods that aren't on
+the parent class but only on the child classes, TS can't figure that out
+
+The solution to that is an abstract class
+
+Abstract classes
+
+- Can't be used to create an object directly
+- Can only be used as a parent class
+- Can contain real implementation for some methods
+- Said methods can refer to other methods that don't yet exist (have to write
+  out the methods and their signatures in the class body)
+- Can make child classes promise to implement some other methods
+
+Mark abstract classes with `abstract` and declare abstract methods with
+`abstract`
+
+```ts
+export interface SortableCollection {
+  length: number;
+  compare(leftIndex: number, rightIndex: number): boolean;
+  swap(leftIndex: number, rightIndex: number): void;
+}
+
+export abstract class Sorter {
+  // mark functions which will eventually exist
+  abstract length: number;
+  abstract compare(leftIndex: number, rightIndex: number): boolean;
+  abstract swap(leftIndex: number, rightIndex: number): void;
+
+  public sort(): void {
+    for (let i = 0; i < this.length; i++) {
+      for (let j = 0; j < this.length - i - 1; j++) {
+        if (this.compare(j, j + 1)) {
+          this.swap(j, j + 1);
+        }
+      }
+    }
+  }
+}
+```

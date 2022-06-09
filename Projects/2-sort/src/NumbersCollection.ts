@@ -1,10 +1,12 @@
-import { SortableCollection } from './Sorter';
+import { SortableCollection, Sorter } from './Sorter';
 
-export class NumbersCollection implements SortableCollection {
-  constructor(public data: number[]) {}
+export class NumbersCollection extends Sorter implements SortableCollection {
+  constructor(public data: number[]) {
+    super();
+  }
 
   // length getter that allows us to check length without calling a func
-  get length(): number {
+  public get length(): number {
     return this.data.length;
   }
 
