@@ -1317,7 +1317,7 @@ charcodes mean our previous implementation does not work as we expect
 
 also strings are immutable, so we cannot do character assignment to a string
 
-#### Bad approach (with unions)
+#### **Bad approach (with unions)**
 
 In the bad approach we create a union between an array of numbers and a string
 for types. The issue with that is Typescript looks at the commonalities of
@@ -1353,7 +1353,7 @@ sorter.sort();
 console.log(sorter.collection);
 ```
 
-#### Implementing type guards
+#### **Implementing type guards**
 
 ```ts
 class Sorter {
@@ -1401,7 +1401,7 @@ operations
 Intermediate solution is to extract swapping and comparison logic to a separate
 class
 
-#### Intermediate refactor
+#### **Intermediate refactor**
 
 ```ts
 // NumbersCollection.ts
@@ -1455,7 +1455,7 @@ sorter.sort();
 console.log(numbersCollection.data);
 ```
 
-#### Adding an interface to the sorter
+#### **Adding an interface to the sorter**
 
 ```ts
 export interface SortableCollection {
@@ -1465,7 +1465,7 @@ export interface SortableCollection {
 }
 ```
 
-#### Writing the CharactersCollection class
+#### **Writing the CharactersCollection class**
 
 ```ts
 import { SortableCollection } from './Sorter';
@@ -1492,3 +1492,8 @@ export class CharactersCollection implements SortableCollection {
   }
 }
 ```
+
+#### **Writing a linked list**
+
+Interfaces are useful not just to gatekeep classes but also to set up
+'contracts' between classes
