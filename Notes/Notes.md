@@ -1086,7 +1086,7 @@ Classes will be used in tandem with interfaces
 First app wiwll be a basic web app that will randomly generate a user/company
 and show them on a map
 
-_installed parcel-bundler globally here_
+- _installed parcel-bundler globally here_
 
 ran parcel with `parcel-bundler index.html`
 
@@ -1270,7 +1270,7 @@ export class User implements Mappable {
 
 Project 1 Done!
 
-## Project 2 - Sorter
+## Application 2 - Sorter
 
 We're going to have 3 different data structures to sort, but we're going to
 write only one sorter function
@@ -1400,3 +1400,95 @@ operations
 
 Intermediate solution is to extract swapping and comparison logic to a separate
 class
+
+#### Intermediate refactor
+
+```ts
+// NumbersCollection.ts
+export class NumbersCollection {
+  constructor(public data: number[]) {}
+
+  // length getter that allows us to check length without calling a func
+  get length(): number {
+    return this.data.length;
+  }
+
+  public compare(leftIndex: number, rightIndex: number): boolean {
+    return this.data[leftIndex] > this.data[rightIndex];
+  }
+
+  public swap(leftIndex: number, rightIndex: number): void {
+    const leftHand = this.data[leftIndex];
+    this.data[leftIndex] = this.data[rightIndex];
+    this.data[rightIndex] = leftHand;
+  }
+}
+```
+
+```ts
+// Sorter.ts
+import { NumbersCollection } from './NumbersCollection';
+
+export class Sorter {
+  constructor(public collection: NumbersCollection) {}
+
+  public sort(): void {
+    for (let i = 0; i < this.collection.length; i++) {
+      for (let j = 0; j < this.collection.length - i - 1; j++) {
+        if (this.collection.compare(j, j + 1)) {
+          this.collection.swap(j, j + 1);
+        }
+      }
+    }
+  }
+}
+```
+
+```ts
+// index.ts
+import { Sorter } from './Sorter';
+import { NumbersCollection } from './NumbersCollection';
+
+const numbersCollection = new NumbersCollection([10, 3, -5, 0]);
+const sorter = new Sorter(numbersCollection);
+sorter.sort();
+console.log(numbersCollection.data);
+```
+
+#### Adding an interface to the sorter
+
+```ts
+export interface SortableCollection {
+  length: number;
+  compare(leftIndex: number, rightIndex: number): boolean;
+  swap(leftIndex: number, rightIndex: number): void;
+}
+```
+
+#### Writing the CharactersCollection class
+
+```ts
+import { SortableCollection } from './Sorter';
+
+export class CharactersCollection implements SortableCollection {
+  constructor(public data: string) {}
+
+  get length(): number {
+    return this.data.length;
+  }
+
+  compare(leftIndex: number, rightIndex: number): boolean {
+    return (
+      this.data[leftIndex].toLowerCase() > this.data[rightIndex].toLowerCase()
+    );
+  }
+
+  swap(leftIndex: number, rightIndex: number): void {
+    const charactersArray = this.data.split('');
+    const leftHand = charactersArray[leftIndex];
+    charactersArray[leftIndex] = charactersArray[rightIndex];
+    charactersArray[rightIndex] = leftHand;
+    this.data = charactersArray.join('');
+  }
+}
+```

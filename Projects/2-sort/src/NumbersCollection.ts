@@ -1,4 +1,6 @@
-export class NumbersCollection {
+import { SortableCollection } from './Sorter';
+
+export class NumbersCollection implements SortableCollection {
   constructor(public data: number[]) {}
 
   // length getter that allows us to check length without calling a func
