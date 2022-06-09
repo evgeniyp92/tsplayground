@@ -11,9 +11,6 @@ class CsvFileReader {
         this.filename = filename;
         this.data = [];
     }
-    get reader() {
-        return this.data;
-    }
     read() {
         this.data = fs_1.default
             .readFileSync(this.filename, {

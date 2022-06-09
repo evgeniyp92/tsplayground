@@ -1792,3 +1792,43 @@ export const dateStringToDate = (dateString: string): Date => {
   return new Date(dateArray[2], dateArray[1], dateArray[0]);
 };
 ```
+
+```ts
+// CsvFileReader after adding advanced parsing
+import fs from 'fs';
+import { dateStringToDate } from './utils';
+import { MatchResult } from './MatchResult';
+
+export class CsvFileReader {
+  data: string[][] = [];
+
+  constructor(public filename: string) {}
+
+  public get reader(): string[][] {
+    return this.data;
+  }
+
+  public read(): void {
+    this.data = fs
+      .readFileSync(this.filename, {
+        encoding: 'utf-8',
+      })
+      .split('\n')
+      .map((row: string): string[] => row.split(','))
+      .map((row: string[]): any => {
+        return [
+          dateStringToDate(row[0]),
+          row[1],
+          row[2],
+          parseInt(row[3]),
+          parseInt(row[4]),
+          // asserting that row[5] is of type MatchResult
+          row[5] as MatchResult,
+          row[6],
+        ];
+      });
+  }
+}
+```
+
+#### Describing the row as a tuple
