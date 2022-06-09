@@ -1674,3 +1674,108 @@ Inheritance/Abstract Classes:
 - Sets up a contract between different classes
 - Use when we are trying to build up a definition of an object
 - Strongly couples classes together
+
+## Application 3 - Statistics
+
+### Reading the csv
+
+Plug in support for default node libraries with `npm install @types/node`
+
+#### **Simple, naive implementation**
+
+```ts
+import fs from 'fs';
+
+const matches = fs
+  .readFileSync('football.csv', {
+    encoding: 'utf-8',
+  })
+  .split('\n')
+  .map((row: string): string[] => {
+    return row.split(',');
+  });
+
+let manUtdWins: number = 0;
+
+for (let match of matches) {
+  if (match[1] === 'Man United' && match[5] === 'H') manUtdWins++;
+  if (match[2] === 'Man United' && match[5] === 'A') manUtdWins++;
+}
+
+console.log(`Manchester United has won ${manUtdWins} games`);
+```
+
+#### Issues with the naive approach
+
+- Magic string comparisons ('H' and 'A')
+- Hardcoded source of data
+- Data array is all strings even though it has numbers in it
+- Variable named after a specific team
+- Analisys type is fixed
+- No ability to output the report in different formats
+
+Enums are the solution for magic strings
+
+```ts
+enum MatchResult {
+  HomeWin = 'H',
+  AwayWin = 'A',
+  Draw = 'D',
+}
+```
+
+enums are better than objects because they signal more clearly to other
+engineers whats going on in our code
+
+enums generate their own type
+
+```ts
+const printMatchResult = (): MatchResult => {
+  if (match[5] === 'H') {
+    return MatchResult.HomeWin;
+  }
+  return MatchResult.AwayWin;
+};
+```
+
+#### When to use enums
+
+Enums
+
+- Follow near-identical syntax rules as normal objects
+- Create an object with the same keys and values when converted to TS
+- Primary goal is dev signaling for closely related values
+- Use whenever we have a small fixed set of values that are all closely related
+  and known at compile time
+
+Should we use an enum to represent...
+
+- Colors on a color picker? YES
+- Set of movie categories on Netflix? NO
+- Titles of all blog posts by a particular user? NO
+- Sizes of a drink on an ordering menu? YES
+- All years since the year 1750? NO
+- The read status of a text message? YES
+
+#### Solving the hardcoded data source
+
+Solved the hardcoded data source with a custom class
+
+```ts
+import fs from 'fs';
+
+export class CsvFileReader {
+  data: string[][] = [];
+
+  constructor(public filename: string) {}
+
+  read(): void {
+    this.data = fs
+      .readFileSync(this.filename, {
+        encoding: 'utf-8',
+      })
+      .split('\n')
+      .map((row: string): string[] => row.split(','));
+  }
+}
+```
