@@ -11,4 +11,3 @@ new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis('Leicester'), new ConsoleR
 new Summary_1.Summary(new WinsAnalysis_1.WinsAnalysis('Chelsea'), new HTMLReport_1.HTMLReport('chelseawins.html')).buildAndPrintReport(matchReader.matches);
 const summary = Summary_1.Summary.winsAnalysisAsHTML('Man City');
 summary.buildAndPrintReport(matchReader.matches);
-console.log(`honk`);

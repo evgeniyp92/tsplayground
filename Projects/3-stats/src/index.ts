@@ -20,5 +20,3 @@ new Summary(
 
 const summary = Summary.winsAnalysisAsHTML('Man City');
 summary.buildAndPrintReport(matchReader.matches);
-
-console.log(`honk`);
