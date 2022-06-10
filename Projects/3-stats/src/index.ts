@@ -5,13 +5,8 @@ import { HTMLReport } from './reportTargets/HTMLReport';
 import { WinsAnalysis } from './analyzers/WinsAnalysis';
 import { Summary } from './Summary';
 
-// Create an object that satisfies the DataReader interface
-const csvFileReader = new CsvFileReader('football.csv');
-// Create an instance of matchReader and pass in something satisfying DataReader
-// interface
-const matchReader = new MatchReader(csvFileReader);
+const matchReader = MatchReader.fromCsv('football.csv');
 matchReader.load();
-// matchReader.matches is an array of MatchData
 
 new Summary(
   new WinsAnalysis('Leicester'),
@@ -22,3 +17,8 @@ new Summary(
   new WinsAnalysis('Chelsea'),
   new HTMLReport('chelseawins.html')
 ).buildAndPrintReport(matchReader.matches);
+
+const summary = Summary.winsAnalysisAsHTML('Man City');
+summary.buildAndPrintReport(matchReader.matches);
+
+console.log(`honk`);

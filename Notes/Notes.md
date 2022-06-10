@@ -2066,3 +2066,48 @@ We still have:
 - Variable named after specific team
 - Fixed analysis type
 - No ability to output report in different formats
+
+Reference `eb8fcb3` for a mostly complete version of the app
+
+### Static methods
+
+Static methods exist on classes whereas non-statics only exist on instances
+
+```ts
+import { MatchData } from './MatchData';
+import { WinsAnalysis } from './analyzers/WinsAnalysis';
+import { HTMLReport } from './reportTargets/HTMLReport';
+
+// defining an analyzer which must have a run function, that analyses a
+// MatchData tuple array and returns a string
+export interface Analyzer {
+  run(matches: MatchData[]): string;
+}
+
+// defining an output target which must implement a print function that takes a
+// string and does something with it
+export interface OutputTarget {
+  print(report: string): void;
+}
+
+export class Summary {
+  static winsAnalysisAsHTML(team: string) {
+    return new Summary(
+      new WinsAnalysis(team),
+      new HTMLReport(`${team}-wins.html`)
+    );
+  }
+
+  constructor(public analyzer: Analyzer, public outputTarget: OutputTarget) {}
+
+  public buildAndPrintReport(matches: MatchData[]): void {
+    const analysis = this.analyzer.run(matches);
+    this.outputTarget.print(analysis);
+  }
+}
+```
+
+```ts
+const summary = Summary.winsAnalysisAsHTML('Man City');
+summary.buildAndPrintReport(matchReader.matches);
+```

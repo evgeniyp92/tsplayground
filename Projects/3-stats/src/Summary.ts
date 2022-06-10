@@ -1,4 +1,6 @@
-import { MatchData } from "./MatchData";
+import { MatchData } from './MatchData';
+import { WinsAnalysis } from './analyzers/WinsAnalysis';
+import { HTMLReport } from './reportTargets/HTMLReport';
 
 // defining an analyzer which must have a run function, that analyses a
 // MatchData tuple array and returns a string
@@ -13,6 +15,13 @@ export interface OutputTarget {
 }
 
 export class Summary {
+  static winsAnalysisAsHTML(team: string) {
+    return new Summary(
+      new WinsAnalysis(team),
+      new HTMLReport(`${team}-wins.html`)
+    );
+  }
+
   constructor(public analyzer: Analyzer, public outputTarget: OutputTarget) {}
 
   public buildAndPrintReport(matches: MatchData[]): void {
