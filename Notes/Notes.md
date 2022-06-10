@@ -1873,7 +1873,7 @@ up
 
 There are two approaches to refactoring this
 
-#### Refactor #1 - Making a child class out of the match reading portion
+### Refactor #1 - Making a child class out of the match reading portion
 
 ```ts
 import fs from 'fs';
@@ -1912,7 +1912,7 @@ export class CsvFileReader {
 }
 ```
 
-##### Generics and how to use them
+#### Generics and how to use them
 
 - Generics are like func arguments but for types in class/func definitions
 - Allows us to define the type of a property/arg/return at a future point
@@ -1982,3 +1982,8 @@ export abstract class CsvFileReader<T> {
   }
 }
 ```
+
+While this refactor (4482a9f) is good and achieves the goals outlined, there is
+a better way to achieve this
+
+### Refactor #2
