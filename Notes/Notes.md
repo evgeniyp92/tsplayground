@@ -2019,3 +2019,50 @@ export class CsvFileReader {
   }
 }
 ```
+
+### Discussion on composition vs inheritance
+
+We focused on inheritance in refactor 1 and composition in refactor 2
+
+Inheritance was when we had the abstract class of `CsvFileReader` and child
+classes of `MatchReader` and any others we may have thought up.
+
+Composition was when we had a class with a reference to another object
+associated with an interface. We gave the concrete classes a function to call to
+load the data on a basic level and work with it from there to present it in a
+more coherent way
+
+Inheritance is characterized by an 'is a' relationship
+
+Composition is characterized by a 'has a' relationship
+
+Example of inheritance: a Wall and Window class will have overlaps in some data
+points, so it makes sense to make a wall and window and make sure that they
+extend class Rectangle
+
+The above class of Window could not be used to represent windows of any
+type/size other than a perfect rectangle, however. If we wanted a circular
+window we'd have to create an additional class as well as a new parent class of
+circle
+
+A Composition approach would describe a wall and a window with a shape
+interface, allowing us to make a wall either a rectangle or a circle, and a
+window either a rectangle or circle. We can also delegate calculations of area
+to the Rectangle and Circle classes instead of the Wall or Window.
+
+Composition makes it easier for us to maximize reusability of code without
+excess headaches
+
+The widely misunderstood perception of object composition is a lego type
+approach but that's not the correct approach and can be a lot more problematic
+because of namespace conflicts
+
+The blog post version of composition is just multiple inheritance
+
+### Finishing up the refactor of issues
+
+We still have:
+
+- Variable named after specific team
+- Fixed analysis type
+- No ability to output report in different formats

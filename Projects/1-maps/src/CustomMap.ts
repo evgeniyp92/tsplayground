@@ -1,4 +1,5 @@
-// instructions to every other class on how they can be an argument to 'addMarker'
+// instructions to every other class on how they can be an argument to
+// 'addMarker'
 export interface Mappable {
   location: {
     lat: number;
@@ -10,7 +11,7 @@ export interface Mappable {
 
 export class CustomMap {
   // marking this as private makes it so nobody can access methods but us
-  private googleMap: google.maps.Map;
+  private readonly googleMap: google.maps.Map;
 
   constructor(divID: string) {
     this.googleMap = new google.maps.Map(
@@ -34,7 +35,7 @@ export class CustomMap {
       },
     });
 
-    marker.addListener('click', () => {
+    marker.addListener("click", () => {
       const infoWindow = new google.maps.InfoWindow({
         content: mappable.markerContent(),
       });
