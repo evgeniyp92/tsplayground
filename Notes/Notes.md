@@ -1986,4 +1986,16 @@ export abstract class CsvFileReader<T> {
 While this refactor (4482a9f) is good and achieves the goals outlined, there is
 a better way to achieve this
 
-### Refactor #2
+### Refactor #2 - Heavy lean on interfaces
+
+In this refactor CsvFileReader is going to be its own class
+
+MatchReader class is going to be its own class with an interface
+
+CsvFileReader will be a data reader that can work with the matchreader interface
+
+the reader in MatchReader will be a class that satisfies the DataReader
+interface with additional functionality on top
+
+load() will call the read() method of the provided reader class and then parse
+the data to specialize it
