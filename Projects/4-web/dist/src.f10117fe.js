@@ -136,7 +136,13 @@ function () {
     return this.data[propName];
   };
 
-  User.prototype.set = function () {};
+  User.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+
+  User.prototype.on = function (eventName) {};
+
+  User.prototype.trigger = function (eventName) {};
 
   return User;
 }();
@@ -154,6 +160,9 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   name: 'Myname',
   age: 20
+});
+user.set({
+  name: 'Max'
 });
 console.log(user.get('name'));
 console.log(user.get('age'));
