@@ -129,7 +129,10 @@ var User =
 /** @class */
 function () {
   function User(data) {
-    this.data = data;
+    this.data = data; // events is an object, key names are unknown but they will be strings and
+    // will point at arrays of callbacks
+
+    this.events = {};
   }
 
   User.prototype.get = function (propName) {
@@ -140,7 +143,12 @@ function () {
     Object.assign(this.data, update);
   };
 
-  User.prototype.on = function (eventName) {};
+  User.prototype.on = function (eventName, callback) {
+    // if there are no handlers, just fallback to init with an empty array
+    var handlers = this.events[eventName] || [];
+    handlers.push(callback);
+    this.events[eventName] = handlers;
+  };
 
   User.prototype.trigger = function (eventName) {};
 
@@ -166,6 +174,12 @@ user.set({
 });
 console.log(user.get('name'));
 console.log(user.get('age'));
+user.on('change', function () {
+  console.log('Hello!');
+});
+user.on('change', function () {});
+user.on('goof', function () {});
+console.log(user);
 },{"./models/User":"src/models/User.ts"}],"../../../../.nvm/versions/node/v16.15.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
