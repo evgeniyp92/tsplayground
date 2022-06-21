@@ -2111,3 +2111,66 @@ export class Summary {
 const summary = Summary.winsAnalysisAsHTML('Man City');
 summary.buildAndPrintReport(matchReader.matches);
 ```
+
+## Generics in more detail
+
+```ts
+// array of numbers
+class ArrayOfNumbers {
+  constructor(public collection: number[]) {}
+
+  get(index: number): number {
+    return this.collection[index];
+  }
+}
+
+// array of strings
+class ArrayOfStrings {
+  constructor(public collection: string[]) {}
+
+  get(index: number): string {
+    return this.collection[index];
+  }
+}
+
+// array of anything! with generics
+class ArrayOfAnything<T> {
+  constructor(public collection: T[]) {}
+
+  get(index: number): T {
+    return this.collection[index];
+  }
+}
+
+// init a generic class
+new ArrayOfAnything<string>(['a', 'b', 'c']);
+```
+
+Type inference works in generics
+
+### Function generics
+
+```ts
+// Function generics
+function printStrings(arr: string[]): void {
+  for (let index = 0; index < arr.length; index++) {
+    console.log(arr[index]);
+  }
+}
+
+function printNumbers(arr: number[]): void {
+  for (let index = 0; index < arr.length; index++) {
+    console.log(arr[index]);
+  }
+}
+
+function printElements<T>(arr: T[]): void {
+  for (let index = 0; index < arr.length; index++) {
+    console.log(arr[index]);
+  }
+}
+
+printElements<string>(['a', 'b', 'c']);
+```
+
+## Application 4 - Dominating web applications with typescript
