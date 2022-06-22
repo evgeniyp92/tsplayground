@@ -4720,7 +4720,19 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   name: 'newRecord',
   age: 25
-});
+}); // console.log(user.get('name'));
+// Reminder of 'this' in JS
+
+var colors = {
+  color: 'red',
+  printColor: function printColor() {
+    console.log(this.color);
+  }
+};
+colors.printColor(); // Generally, this is equal to whatever is to the left of the function call
+
+var printColor = colors.printColor;
+printColor();
 },{"./models/User":"src/models/User.ts"}],"../../../../.nvm/versions/node/v16.15.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
