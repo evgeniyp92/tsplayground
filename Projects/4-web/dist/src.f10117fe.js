@@ -129,27 +129,29 @@ var Eventing =
 /** @class */
 function () {
   function Eventing() {
+    var _this = this;
+
     this.events = {};
+
+    this.on = function (eventName, callback) {
+      // if there are no handlers, just fallback to init with an empty array
+      var handlers = _this.events[eventName] || [];
+      handlers.push(callback);
+      _this.events[eventName] = handlers;
+    };
+
+    this.trigger = function (eventName) {
+      var handlers = _this.events[eventName];
+
+      if (!handlers || handlers.length === 0) {
+        return;
+      }
+
+      handlers.forEach(function (callback) {
+        return callback();
+      });
+    };
   }
-
-  Eventing.prototype.on = function (eventName, callback) {
-    // if there are no handlers, just fallback to init with an empty array
-    var handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
-
-  Eventing.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName];
-
-    if (!handlers || handlers.length === 0) {
-      return;
-    }
-
-    handlers.forEach(function (callback) {
-      return callback();
-    });
-  };
 
   return Eventing;
 }();
@@ -4634,14 +4636,15 @@ var Attributes =
 /** @class */
 function () {
   function Attributes(data) {
-    this.data = data;
-  } // K can only ever be one of the keys of T
-  // returns a value of the relevant key value pair
+    var _this = this;
 
+    this.data = data; // K can only ever be one of the keys of T
+    // returns a value of the relevant key value pair
 
-  Attributes.prototype.get = function (key) {
-    return this.data[key];
-  };
+    this.get = function (key) {
+      return _this.data[key];
+    };
+  }
 
   Attributes.prototype.set = function (update) {
     Object.assign(this.data, update);
@@ -4720,19 +4723,8 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   name: 'newRecord',
   age: 25
-}); // console.log(user.get('name'));
-// Reminder of 'this' in JS
-
-var colors = {
-  color: 'red',
-  printColor: function printColor() {
-    console.log(this.color);
-  }
-};
-colors.printColor(); // Generally, this is equal to whatever is to the left of the function call
-
-var printColor = colors.printColor;
-printColor();
+});
+console.log(user.get('name'));
 },{"./models/User":"src/models/User.ts"}],"../../../../.nvm/versions/node/v16.15.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
