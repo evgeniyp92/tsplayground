@@ -22,9 +22,9 @@ interface HasID {
 
 export class Model<Type extends HasID> {
   constructor(
-    public attributes: ModelAttributes<Type>,
-    public events: Events,
-    public sync: Sync<Type>
+    private attributes: ModelAttributes<Type>,
+    private events: Events,
+    private sync: Sync<Type>
   ) {}
 
   // PASSTHRU METHODS ----------------------------------------------------------
@@ -38,6 +38,9 @@ export class Model<Type extends HasID> {
   public get on() {
     return this.events.on;
   }
+
+  // extra shorthand getter
+  on2 = this.events.on;
 
   public get trigger() {
     return this.events.trigger;

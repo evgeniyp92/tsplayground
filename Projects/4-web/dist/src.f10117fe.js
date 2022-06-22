@@ -131,7 +131,9 @@ function () {
   function Model(attributes, events, sync) {
     this.attributes = attributes;
     this.events = events;
-    this.sync = sync;
+    this.sync = sync; // extra shorthand getter
+
+    this.on2 = this.events.on;
   }
 
   Object.defineProperty(Model.prototype, "on", {
