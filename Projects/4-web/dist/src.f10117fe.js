@@ -4563,10 +4563,7 @@ var User =
 /** @class */
 function () {
   function User(data) {
-    this.data = data; // events is an object, key names are unknown but they will be strings and
-    // will point at arrays of callbacks
-
-    this.events = {};
+    this.data = data;
   }
 
   User.prototype.get = function (propName) {
@@ -4575,25 +4572,6 @@ function () {
 
   User.prototype.set = function (update) {
     Object.assign(this.data, update);
-  };
-
-  User.prototype.on = function (eventName, callback) {
-    // if there are no handlers, just fallback to init with an empty array
-    var handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
-
-  User.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName];
-
-    if (!handlers || handlers.length === 0) {
-      return;
-    }
-
-    handlers.forEach(function (callback) {
-      return callback();
-    });
   };
 
   User.prototype.fetch = function () {
