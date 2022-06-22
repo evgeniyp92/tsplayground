@@ -4792,6 +4792,10 @@ function (_super) {
     return new User(new Attributes_1.Attributes(attrs), new Eventing_1.Eventing(), new ApiSync_1.ApiSync(rootUrl));
   };
 
+  User.prototype.isAdminUser = function () {
+    return this.get('id') === 1;
+  };
+
   return User;
 }(Model_1.Model);
 
