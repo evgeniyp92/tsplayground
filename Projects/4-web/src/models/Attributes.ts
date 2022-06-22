@@ -1,17 +1,13 @@
-import { UserProps } from './User';
+export class Attributes<Type> {
+  constructor(private data: Type) {}
 
-export class Attributes<T> {
-  constructor(private data: T) {}
-
-  public get(propName: string): number | string | boolean {
-    return this.data[propName];
+  // K can only ever be one of the keys of T
+  // returns a value of the relevant key value pair
+  public get<Key extends keyof Type>(key: Key): Type[Key] {
+    return this.data[key];
   }
 
-  public set(update: T): void {
+  public set(update: Type): void {
     Object.assign(this.data, update);
   }
 }
-
-const attrs = new Attributes<UserProps>({ id: 5, name: 'asf', age: 20 });
-
-const id = attrs.get('id');
