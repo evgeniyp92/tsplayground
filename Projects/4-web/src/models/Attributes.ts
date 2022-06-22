@@ -10,4 +10,8 @@ export class Attributes<Type extends object> {
   public set(update: Type): void {
     Object.assign(this.data, update);
   }
+
+  public getAll(): Type {
+    return this.data;
+  }
 }
