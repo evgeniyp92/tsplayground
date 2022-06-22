@@ -18,4 +18,8 @@ export class User {
   constructor(attrs: UserProps) {
     this.attributes = new Attributes<UserProps>(attrs);
   }
+
+  // direct argument passthru
+
+  //
 }
