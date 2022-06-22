@@ -4649,10 +4649,14 @@ Object.defineProperty(exports, "__esModule", {
 var User_1 = require("./models/User");
 
 var user = new User_1.User({
-  name: "newRecord",
+  name: 'newRecord',
   age: 25
 });
-user.save();
+user.events.on('change', function () {
+  console.log("change!");
+});
+user.events.trigger('change');
+console.log(user);
 },{"./models/User":"src/models/User.ts"}],"../../../../.nvm/versions/node/v16.15.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
