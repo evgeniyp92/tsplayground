@@ -4676,6 +4676,34 @@ function () {
     this.attributes = new Attributes_1.Attributes(attrs);
   }
 
+  Object.defineProperty(User.prototype, "on", {
+    // PASSTHRU METHODS ----------------------------------------------------------
+    // bad code
+    // public on(eventName: string, callback: Callback) {
+    //   this.events.on(eventName, callback);
+    // }
+    // good code
+    // think of it as a forwarder to the actual on function
+    get: function get() {
+      return this.events.on;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(User.prototype, "trigger", {
+    get: function get() {
+      return this.events.trigger;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  Object.defineProperty(User.prototype, "get", {
+    get: function get() {
+      return this.attributes.get;
+    },
+    enumerable: false,
+    configurable: true
+  });
   return User;
 }();
 
@@ -4692,28 +4720,7 @@ var User_1 = require("./models/User");
 var user = new User_1.User({
   name: 'newRecord',
   age: 25
-}); // A quick reminder on accessors
-
-var Person =
-/** @class */
-function () {
-  function Person(firstName, lastName) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-  }
-
-  Object.defineProperty(Person.prototype, "fullName", {
-    get: function get() {
-      return "".concat(this.firstName, " ").concat(this.lastName);
-    },
-    enumerable: false,
-    configurable: true
-  });
-  return Person;
-}();
-
-var person = new Person('John', 'Smith');
-person.fullName;
+});
 },{"./models/User":"src/models/User.ts"}],"../../../../.nvm/versions/node/v16.15.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

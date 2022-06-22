@@ -1,4 +1,4 @@
-import { Eventing } from './Eventing';
+import { Eventing, Callback } from './Eventing';
 import { Sync } from './Sync';
 import { Attributes } from './Attributes';
 
@@ -19,7 +19,25 @@ export class User {
     this.attributes = new Attributes<UserProps>(attrs);
   }
 
-  // direct argument passthru
+  // PASSTHRU METHODS ----------------------------------------------------------
+  // bad code
+  // public on(eventName: string, callback: Callback) {
+  //   this.events.on(eventName, callback);
+  // }
 
-  //
+  // good code
+  // think of it as a forwarder to the actual on function
+  public get on() {
+    return this.events.on;
+  }
+
+  public get trigger() {
+    return this.events.trigger;
+  }
+
+  public get get() {
+    return this.attributes.get;
+  }
+
+  // COORDINATION REQUIRED -----------------------------------------------------
 }
