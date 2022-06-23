@@ -1,4 +1,4 @@
-export class Attributes<Type extends object> {
+export class Attributes<Type extends {}> {
   constructor(private data: Type) {}
 
   // K can only ever be one of the keys of T

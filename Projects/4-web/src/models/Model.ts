@@ -1,14 +1,14 @@
 import { AxiosError, AxiosPromise, AxiosResponse } from 'axios';
 
-interface ModelAttributes<Type> {
-  set(update: Type): void;
-  getAll(): Type;
-  get<Key extends keyof Type>(key: Key): Type[Key];
+interface ModelAttributes<T> {
+  set(update: T): void;
+  getAll(): T;
+  get<K extends keyof T>(key: K): T[K];
 }
 
-interface Sync<Type> {
+interface Sync<T> {
   fetch(id: number): AxiosPromise;
-  save(data: Type): AxiosPromise;
+  save(data: T): AxiosPromise;
 }
 
 interface Events {
@@ -20,11 +20,11 @@ interface HasID {
   id?: number;
 }
 
-export class Model<Type extends HasID> {
+export class Model<T extends HasID> {
   constructor(
-    private attributes: ModelAttributes<Type>,
+    private attributes: ModelAttributes<T>,
     private events: Events,
-    private sync: Sync<Type>
+    private sync: Sync<T>
   ) {}
 
   // PASSTHRU METHODS ----------------------------------------------------------
@@ -51,7 +51,7 @@ export class Model<Type extends HasID> {
   }
 
   // COORDINATION REQUIRED -----------------------------------------------------
-  public set(update: Type): void {
+  public set(update: T): void {
     this.attributes.set(update);
     this.events.trigger('change');
   }

@@ -1,7 +1,7 @@
 import { Model } from './Model';
 import { Attributes } from './Attributes';
-import { ApiSync } from './ApiSync';
 import { Eventing } from './Eventing';
+import { ApiSync } from './ApiSync';
 import { Collection } from './Collection';
 
 export interface UserProps {
@@ -27,7 +27,7 @@ export class User extends Model<UserProps> {
     );
   }
 
-  static isAdminUser(): boolean {
+  public isAdminUser(): boolean {
     return this.get('id') === 1;
   }
 }

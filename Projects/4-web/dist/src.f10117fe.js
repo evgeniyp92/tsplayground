@@ -228,6 +228,46 @@ function () {
 }();
 
 exports.Attributes = Attributes;
+},{}],"src/models/Eventing.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Eventing = void 0;
+
+var Eventing =
+/** @class */
+function () {
+  function Eventing() {
+    var _this = this;
+
+    this.events = {};
+
+    this.on = function (eventName, callback) {
+      // if there are no handlers, just fallback to init with an empty array
+      var handlers = _this.events[eventName] || [];
+      handlers.push(callback);
+      _this.events[eventName] = handlers;
+    };
+
+    this.trigger = function (eventName) {
+      var handlers = _this.events[eventName];
+
+      if (!handlers || handlers.length === 0) {
+        return;
+      }
+
+      handlers.forEach(function (callback) {
+        return callback();
+      });
+    };
+  }
+
+  return Eventing;
+}();
+
+exports.Eventing = Eventing;
 },{}],"node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
@@ -4695,47 +4735,7 @@ function () {
 }();
 
 exports.ApiSync = ApiSync;
-},{"axios":"node_modules/axios/index.js"}],"src/models/Eventing.ts":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Eventing = void 0;
-
-var Eventing =
-/** @class */
-function () {
-  function Eventing() {
-    var _this = this;
-
-    this.events = {};
-
-    this.on = function (eventName, callback) {
-      // if there are no handlers, just fallback to init with an empty array
-      var handlers = _this.events[eventName] || [];
-      handlers.push(callback);
-      _this.events[eventName] = handlers;
-    };
-
-    this.trigger = function (eventName) {
-      var handlers = _this.events[eventName];
-
-      if (!handlers || handlers.length === 0) {
-        return;
-      }
-
-      handlers.forEach(function (callback) {
-        return callback();
-      });
-    };
-  }
-
-  return Eventing;
-}();
-
-exports.Eventing = Eventing;
-},{}],"src/models/Collection.ts":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js"}],"src/models/Collection.ts":[function(require,module,exports) {
 "use strict";
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -4833,9 +4833,9 @@ var Model_1 = require("./Model");
 
 var Attributes_1 = require("./Attributes");
 
-var ApiSync_1 = require("./ApiSync");
-
 var Eventing_1 = require("./Eventing");
+
+var ApiSync_1 = require("./ApiSync");
 
 var Collection_1 = require("./Collection");
 
@@ -4860,7 +4860,7 @@ function (_super) {
     });
   };
 
-  User.isAdminUser = function () {
+  User.prototype.isAdminUser = function () {
     return this.get('id') === 1;
   };
 
@@ -4868,7 +4868,7 @@ function (_super) {
 }(Model_1.Model);
 
 exports.User = User;
-},{"./Model":"src/models/Model.ts","./Attributes":"src/models/Attributes.ts","./ApiSync":"src/models/ApiSync.ts","./Eventing":"src/models/Eventing.ts","./Collection":"src/models/Collection.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./Model":"src/models/Model.ts","./Attributes":"src/models/Attributes.ts","./Eventing":"src/models/Eventing.ts","./ApiSync":"src/models/ApiSync.ts","./Collection":"src/models/Collection.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
