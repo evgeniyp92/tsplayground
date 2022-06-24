@@ -148,7 +148,10 @@ var View = /*#__PURE__*/function () {
     _classCallCheck(this, View);
 
     this.parent = parent;
-    this.model = model;
+    this.model = model; // an unknown yet object that has a bunch of keys as strings that will have
+    // values of elements
+
+    this.regions = {};
     this.bindModel();
   }
 
@@ -186,18 +189,38 @@ var View = /*#__PURE__*/function () {
       }
     }
   }, {
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {};
+    }
+  }, {
+    key: "regionsMap",
+    value: function regionsMap() {
+      return {};
+    }
+  }, {
+    key: "mapRegions",
+    value: function mapRegions(fragment) {
+      var regionsMap = this.regionsMap();
+
+      for (var key in regionsMap) {
+        var selector = regionsMap[key];
+        var element = fragment.querySelector(selector);
+
+        if (element) {
+          this.regions[key] = element;
+        }
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       this.parent.innerHTML = '';
       var templateElement = document.createElement('template');
       templateElement.innerHTML = this.template();
       this.bindEvents(templateElement.content);
+      this.mapRegions(templateElement.content);
       this.parent.append(templateElement.content);
-    }
-  }, {
-    key: "eventsMap",
-    value: function eventsMap() {
-      return {};
     }
   }]);
 
