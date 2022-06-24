@@ -1,16 +1,7 @@
 import { User } from '../models/User';
+import { View } from './View';
 
-export class UserForm {
-  constructor(public parent: Element, public model: User) {
-    this.bindModel();
-  }
-
-  bindModel(): void {
-    this.model.on('change', () => {
-      this.render();
-    });
-  }
-
+export class UserForm extends View<User> {
   eventsMap(): { [key: string]: () => void } {
     return {
       'click:.set-age': this.onSetAgeClick,
@@ -40,27 +31,5 @@ export class UserForm {
 				<button class='set-age'>Set Random Age</button>
 			</div>
 		`;
-  }
-
-  bindEvents(fragment: DocumentFragment): void {
-    // make a copy of the events map
-    const eventsMap = this.eventsMap();
-    for (let eventKey in eventsMap) {
-      // break out eventName against selector
-      const [eventName, selector] = eventKey.split(':');
-      // find every element that matches the selector, then apply the callback
-      // function associated with it
-      fragment.querySelectorAll(selector).forEach((el) => {
-        el.addEventListener(eventName, eventsMap[eventKey]);
-      });
-    }
-  }
-
-  render(): void {
-    this.parent.innerHTML = '';
-    const templateElement = document.createElement('template');
-    templateElement.innerHTML = this.template();
-    this.bindEvents(templateElement.content);
-    this.parent.append(templateElement.content);
   }
 }
