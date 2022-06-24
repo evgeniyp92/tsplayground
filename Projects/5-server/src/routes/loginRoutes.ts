@@ -1,8 +1,10 @@
 import express, { Request, Response } from 'express';
 
-const router = express.Router();
+interface RequestWithBody extends Request {
+  body: { [key: string]: string | undefined };
+}
 
-type HttpBody = { [key: string]: string | undefined };
+const router = express.Router();
 
 router.get('/', (req: Request, res: Response) => {
   res.send('hi there');
@@ -24,12 +26,12 @@ router.get('/login', (req: Request, res: Response) => {
 	`);
 });
 
-router.post('/login', (req: Request<{}, {}, HttpBody>, res: Response) => {
+router.post('/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
   if (email) {
     res.send(email.toUpperCase());
   } else {
-    res.send(`You must provide an email property`);
+    res.status(422).send(`email is not provided`);
   }
 });
 
