@@ -120,16 +120,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"src/views/UserForm.ts":[function(require,module,exports) {
 "use strict";
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UserForm = void 0;
 
-var UserForm =
-/** @class */
-function () {
+var UserForm = /*#__PURE__*/function () {
   function UserForm(parent, model) {
     var _this = this;
+
+    _classCallCheck(this, UserForm);
 
     this.parent = parent;
     this.model = model;
@@ -150,55 +168,63 @@ function () {
     this.bindModel();
   }
 
-  UserForm.prototype.bindModel = function () {
-    var _this = this;
+  _createClass(UserForm, [{
+    key: "bindModel",
+    value: function bindModel() {
+      var _this2 = this;
 
-    this.model.on('change', function () {
-      _this.render();
-    });
-  };
-
-  UserForm.prototype.eventsMap = function () {
-    return {
-      'click:.set-age': this.onSetAgeClick,
-      'click:.set-name': this.onSetNameClick
-    };
-  }; // setting up the base template
-
-
-  UserForm.prototype.template = function () {
-    return "\n\t\t\t<div>\n\t\t\t\t<h1>User Form</h1>\n\t\t\t\t<div>User name: ".concat(this.model.get('name'), "</div>\n\t\t\t\t<div>User age: ").concat(this.model.get('age'), "</div>\n\t\t\t\t<input />\n\t\t\t\t<button class='set-name'>Change name</button>\n\t\t\t\t<button class='set-age'>Set Random Age</button>\n\t\t\t</div>\n\t\t");
-  };
-
-  UserForm.prototype.bindEvents = function (fragment) {
-    // make a copy of the events map
-    var eventsMap = this.eventsMap();
-
-    var _loop_1 = function _loop_1(eventKey) {
-      // break out eventName against selector
-      var _a = eventKey.split(':'),
-          eventName = _a[0],
-          selector = _a[1]; // find every element that matches the selector, then apply the callback
-      // function associated with it
-
-
-      fragment.querySelectorAll(selector).forEach(function (el) {
-        el.addEventListener(eventName, eventsMap[eventKey]);
+      this.model.on('change', function () {
+        _this2.render();
       });
-    };
-
-    for (var eventKey in eventsMap) {
-      _loop_1(eventKey);
     }
-  };
+  }, {
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {
+        'click:.set-age': this.onSetAgeClick,
+        'click:.set-name': this.onSetNameClick
+      };
+    } // setting up the base template
 
-  UserForm.prototype.render = function () {
-    this.parent.innerHTML = '';
-    var templateElement = document.createElement('template');
-    templateElement.innerHTML = this.template();
-    this.bindEvents(templateElement.content);
-    this.parent.append(templateElement.content);
-  };
+  }, {
+    key: "template",
+    value: function template() {
+      return "\n\t\t\t<div>\n\t\t\t\t<h1>User Form</h1>\n\t\t\t\t<div>User name: ".concat(this.model.get('name'), "</div>\n\t\t\t\t<div>User age: ").concat(this.model.get('age'), "</div>\n\t\t\t\t<input />\n\t\t\t\t<button class='set-name'>Change name</button>\n\t\t\t\t<button class='set-age'>Set Random Age</button>\n\t\t\t</div>\n\t\t");
+    }
+  }, {
+    key: "bindEvents",
+    value: function bindEvents(fragment) {
+      // make a copy of the events map
+      var eventsMap = this.eventsMap();
+
+      var _loop = function _loop(eventKey) {
+        // break out eventName against selector
+        var _eventKey$split = eventKey.split(':'),
+            _eventKey$split2 = _slicedToArray(_eventKey$split, 2),
+            eventName = _eventKey$split2[0],
+            selector = _eventKey$split2[1]; // find every element that matches the selector, then apply the callback
+        // function associated with it
+
+
+        fragment.querySelectorAll(selector).forEach(function (el) {
+          el.addEventListener(eventName, eventsMap[eventKey]);
+        });
+      };
+
+      for (var eventKey in eventsMap) {
+        _loop(eventKey);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      this.parent.innerHTML = '';
+      var templateElement = document.createElement('template');
+      templateElement.innerHTML = this.template();
+      this.bindEvents(templateElement.content);
+      this.parent.append(templateElement.content);
+    }
+  }]);
 
   return UserForm;
 }();
@@ -4976,8 +5002,14 @@ var user = User_1.User.buildUser({
   name: 'STEVE',
   age: 20
 });
-var userForm = new UserForm_1.UserForm(document.getElementById('root'), user);
-userForm.render();
+var rootElement = document.getElementById('root');
+
+if (rootElement) {
+  var userForm = new UserForm_1.UserForm(rootElement, user);
+  userForm.render();
+} else {
+  throw new Error('Root element not found!');
+}
 },{"./views/UserForm":"src/views/UserForm.ts","./models/User":"src/models/User.ts"}],"../../../../.nvm/versions/node/v16.15.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -5006,7 +5038,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61671" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62271" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
