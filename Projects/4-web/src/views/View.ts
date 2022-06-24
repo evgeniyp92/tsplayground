@@ -1,10 +1,6 @@
-// specifying an interface to control for methods and props that need to exist
-// on the child interface
-interface ModelForView {
-  on(eventName: string, callback: () => void): void;
-}
+import { HasID, Model } from '../models/Model';
 
-export abstract class View<T extends ModelForView> {
+export abstract class View<T extends Model<K>, K extends HasID> {
   constructor(public parent: Element, public model: T) {
     this.bindModel();
   }

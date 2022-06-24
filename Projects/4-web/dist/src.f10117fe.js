@@ -283,75 +283,80 @@ exports.UserForm = UserForm;
 },{"./View":"src/views/View.ts"}],"src/models/Model.ts":[function(require,module,exports) {
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Model = void 0;
 
-var Model =
-/** @class */
-function () {
+var Model = /*#__PURE__*/function () {
   function Model(attributes, events, sync) {
+    _classCallCheck(this, Model);
+
     this.attributes = attributes;
     this.events = events;
     this.sync = sync;
-  }
+  } // PASSTHRU METHODS ----------------------------------------------------------
+  // bad code
+  // public on(eventName: string, callback: Callback) {
+  //   this.events.on(eventName, callback);
+  // }
+  // good code
+  // think of it as a forwarder to the actual on function
 
-  Object.defineProperty(Model.prototype, "on", {
-    // PASSTHRU METHODS ----------------------------------------------------------
-    // bad code
-    // public on(eventName: string, callback: Callback) {
-    //   this.events.on(eventName, callback);
-    // }
-    // good code
-    // think of it as a forwarder to the actual on function
+
+  _createClass(Model, [{
+    key: "on",
     get: function get() {
       return this.events.on;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Model.prototype, "trigger", {
-    // extra shorthand getter
+    } // extra shorthand getter
     // on2 = this.events.on;
+
+  }, {
+    key: "trigger",
     get: function get() {
       return this.events.trigger;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Model.prototype, "get", {
+    }
+  }, {
+    key: "get",
     get: function get() {
       return this.attributes.get;
-    },
-    enumerable: false,
-    configurable: true
-  }); // COORDINATION REQUIRED -----------------------------------------------------
+    } // COORDINATION REQUIRED -----------------------------------------------------
 
-  Model.prototype.set = function (update) {
-    this.attributes.set(update);
-    this.events.trigger('change');
-  };
+  }, {
+    key: "set",
+    value: function set(update) {
+      this.attributes.set(update);
+      this.events.trigger('change');
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
 
-  Model.prototype.fetch = function () {
-    var _this = this;
+      var id = this.get('id');
+      if (typeof id !== 'number') throw new Error('Cannot fetch without an id');
+      this.sync.fetch(id).then(function (r) {
+        _this.set(r.data);
+      });
+    }
+  }, {
+    key: "save",
+    value: function save() {
+      var _this2 = this;
 
-    var id = this.get('id');
-    if (typeof id !== 'number') throw new Error('Cannot fetch without an id');
-    this.sync.fetch(id).then(function (r) {
-      _this.set(r.data);
-    });
-  };
-
-  Model.prototype.save = function () {
-    var _this = this;
-
-    this.sync.save(this.attributes.getAll()).then(function (r) {
-      _this.trigger('save');
-    }).catch(function (e) {
-      _this.trigger('errror');
-    });
-  };
+      this.sync.save(this.attributes.getAll()).then(function (r) {
+        _this2.trigger('save');
+      }).catch(function (e) {
+        _this2.trigger('errror');
+      });
+    }
+  }]);
 
   return Model;
 }();
