@@ -6,11 +6,11 @@ interface RequestWithBody extends Request {
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (_req: Request, res: Response) => {
   res.send('hi there');
 });
 
-router.get('/login', (req: Request, res: Response) => {
+router.get('/login', (_req: Request, res: Response) => {
   res.send(`
 		<form method="POST">
 			<div>
@@ -28,10 +28,31 @@ router.get('/login', (req: Request, res: Response) => {
 
 router.post('/login', (req: RequestWithBody, res: Response) => {
   const { email, password } = req.body;
-  if (email) {
-    res.send(email.toUpperCase());
+  if (email && password && email === 'hi@hi.com' && password === 'password') {
+    // set the session with a loggedin flag
+    req.session = { loggedIn: true };
+    // redirect the user to index
+    res.redirect('/');
   } else {
-    res.status(422).send(`email is not provided`);
+    res.send(`invalid email or password`);
+  }
+});
+
+router.get('/', (req: Request, res: Response) => {
+  if (req.session && req.session.loggedIn) {
+    res.send(`
+			<div>
+				<div>You are logged in</div>
+				<a href='/logout'>Log out</a>
+			</div>
+		`);
+  } else {
+    res.send(`
+			<div>
+				<div>You are not logged in</div>
+				<a href='/login'>Log in</a>
+			</div>
+		`);
   }
 });
 

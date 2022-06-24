@@ -7,10 +7,10 @@ exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.router = router;
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
     res.send('hi there');
 });
-router.get('/login', (req, res) => {
+router.get('/login', (_req, res) => {
     res.send(`
 		<form method="POST">
 			<div>
@@ -27,10 +27,31 @@ router.get('/login', (req, res) => {
 });
 router.post('/login', (req, res) => {
     const { email, password } = req.body;
-    if (email) {
-        res.send(email.toUpperCase());
+    if (email && password && email === 'hi@hi.com' && password === 'password') {
+        // set the session with a loggedin flag
+        req.session = { loggedIn: true };
+        // redirect the user to index
+        res.redirect('/');
     }
     else {
-        res.status(422).send(`email is not provided`);
+        res.send(`invalid email or password`);
+    }
+});
+router.get('/', (req, res) => {
+    if (req.session && req.session.loggedIn) {
+        res.send(`
+			<div>
+				<div>You are logged in</div>
+				<a href='/logout'>Log out</a>
+			</div>
+		`);
+    }
+    else {
+        res.send(`
+			<div>
+				<div>You are not logged in</div>
+				<a href='/login'>Log in</a>
+			</div>
+		`);
     }
 });
