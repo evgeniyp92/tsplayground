@@ -130,7 +130,17 @@ var UserForm =
 function () {
   function UserForm(parent) {
     this.parent = parent;
-  } // setting up the base template
+  }
+
+  UserForm.prototype.eventsMap = function () {
+    return {
+      'click:button': this.onButtonClick
+    };
+  };
+
+  UserForm.prototype.onButtonClick = function () {
+    console.log('Hi there');
+  }; // setting up the base template
 
 
   UserForm.prototype.template = function () {
