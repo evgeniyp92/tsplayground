@@ -30,4 +30,8 @@ export class User extends Model<UserProps> {
   public isAdminUser(): boolean {
     return this.get('id') === 1;
   }
+
+  public setRandomAge(): void {
+    this.set({ age: Math.round(Math.random() * 100) });
+  }
 }

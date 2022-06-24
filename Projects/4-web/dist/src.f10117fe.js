@@ -129,28 +129,25 @@ var UserForm =
 /** @class */
 function () {
   function UserForm(parent, model) {
+    var _this = this;
+
     this.parent = parent;
     this.model = model;
+
+    this.onSetAgeClick = function () {
+      _this.model.setRandomAge();
+    };
   }
 
   UserForm.prototype.eventsMap = function () {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onHeaderHover
+      'click:.set-age': this.onSetAgeClick
     };
-  };
-
-  UserForm.prototype.onHeaderHover = function () {
-    console.log("h1 was hovered over");
-  };
-
-  UserForm.prototype.onButtonClick = function () {
-    console.log('Hi there');
   }; // setting up the base template
 
 
   UserForm.prototype.template = function () {
-    return "\n\t\t\t<div>\n\t\t\t\t<h1>User Form</h1>\n\t\t\t\t<div>User name: ".concat(this.model.get('name'), "</div>\n\t\t\t\t<div>User age: ").concat(this.model.get('age'), "</div>\n\t\t\t\t<input />\n\t\t\t\t<button>Click me</button>\n\t\t\t</div>\n\t\t");
+    return "\n\t\t\t<div>\n\t\t\t\t<h1>User Form</h1>\n\t\t\t\t<div>User name: ".concat(this.model.get('name'), "</div>\n\t\t\t\t<div>User age: ").concat(this.model.get('age'), "</div>\n\t\t\t\t<input />\n\t\t\t\t<button>Click me</button>\n\t\t\t\t<button class='set-age'>Set Random Age</button>\n\t\t\t</div>\n\t\t");
   };
 
   UserForm.prototype.bindEvents = function (fragment) {
@@ -4931,6 +4928,12 @@ function (_super) {
 
   User.prototype.isAdminUser = function () {
     return this.get('id') === 1;
+  };
+
+  User.prototype.setRandomAge = function () {
+    this.set({
+      age: Math.round(Math.random() * 100)
+    });
   };
 
   return User;
