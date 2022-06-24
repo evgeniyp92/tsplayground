@@ -257,6 +257,10 @@ var UserForm = /*#__PURE__*/function (_View_1$View) {
       });
     };
 
+    _this.onSaveClick = function () {
+      _this.model.save();
+    };
+
     return _this;
   }
 
@@ -265,14 +269,15 @@ var UserForm = /*#__PURE__*/function (_View_1$View) {
     value: function eventsMap() {
       return {
         'click:.set-age': this.onSetAgeClick,
-        'click:.set-name': this.onSetNameClick
+        'click:.set-name': this.onSetNameClick,
+        'click:.save': this.onSaveClick
       };
     } // setting up the base template
 
   }, {
     key: "template",
     value: function template() {
-      return "\n\t\t\t<div>\n\t\t\t\t<h1>User Form</h1>\n\t\t\t\t<div>User name: ".concat(this.model.get('name'), "</div>\n\t\t\t\t<div>User age: ").concat(this.model.get('age'), "</div>\n\t\t\t\t<input />\n\t\t\t\t<button class='set-name'>Change name</button>\n\t\t\t\t<button class='set-age'>Set Random Age</button>\n\t\t\t</div>\n\t\t");
+      return "\n\t\t\t<div>\n\t\t\t\t<input placeholder='".concat(this.model.get('name'), "'/>\n\t\t\t\t<button class='set-name'>Change name</button>\n\t\t\t\t<button class='set-age'>Set Random Age</button>\n\t\t\t\t<button class='save'>Save</save>\n\t\t\t</div>\n\t\t");
     }
   }]);
 
@@ -353,7 +358,7 @@ var Model = /*#__PURE__*/function () {
       this.sync.save(this.attributes.getAll()).then(function (r) {
         _this2.trigger('save');
       }).catch(function (e) {
-        _this2.trigger('errror');
+        _this2.trigger('error');
       });
     }
   }]);

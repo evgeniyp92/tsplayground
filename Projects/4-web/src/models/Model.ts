@@ -71,7 +71,7 @@ export class Model<T extends HasID> {
         this.trigger('save');
       })
       .catch((e: AxiosError) => {
-        this.trigger('errror');
+        this.trigger('error');
       });
   }
 }
