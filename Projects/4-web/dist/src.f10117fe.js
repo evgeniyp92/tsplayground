@@ -194,6 +194,11 @@ var View = /*#__PURE__*/function () {
       this.bindEvents(templateElement.content);
       this.parent.append(templateElement.content);
     }
+  }, {
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {};
+    }
   }]);
 
   return View;
