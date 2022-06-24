@@ -31,6 +31,7 @@ export abstract class View<T extends Model<K>, K extends HasID> {
     }
   }
 
+  // default, overridable classes
   eventsMap(): { [key: string]: () => void } {
     return {};
   }
@@ -50,12 +51,15 @@ export abstract class View<T extends Model<K>, K extends HasID> {
     }
   }
 
+  onRender(): void {}
+
   render(): void {
     this.parent.innerHTML = '';
     const templateElement = document.createElement('template');
     templateElement.innerHTML = this.template();
     this.bindEvents(templateElement.content);
     this.mapRegions(templateElement.content);
+    this.onRender();
     this.parent.append(templateElement.content);
   }
 }
