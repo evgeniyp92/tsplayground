@@ -40,7 +40,7 @@ export class Model<T extends HasID> {
   }
 
   // extra shorthand getter
-  on2 = this.events.on;
+  // on2 = this.events.on;
 
   public get trigger() {
     return this.events.trigger;

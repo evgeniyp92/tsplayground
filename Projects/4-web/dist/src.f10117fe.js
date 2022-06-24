@@ -137,7 +137,17 @@ function () {
     this.onSetAgeClick = function () {
       _this.model.setRandomAge();
     };
+
+    this.bindModel();
   }
+
+  UserForm.prototype.bindModel = function () {
+    var _this = this;
+
+    this.model.on('change', function () {
+      _this.render();
+    });
+  };
 
   UserForm.prototype.eventsMap = function () {
     return {
@@ -197,9 +207,7 @@ function () {
   function Model(attributes, events, sync) {
     this.attributes = attributes;
     this.events = events;
-    this.sync = sync; // extra shorthand getter
-
-    this.on2 = this.events.on;
+    this.sync = sync;
   }
 
   Object.defineProperty(Model.prototype, "on", {
@@ -217,6 +225,8 @@ function () {
     configurable: true
   });
   Object.defineProperty(Model.prototype, "trigger", {
+    // extra shorthand getter
+    // on2 = this.events.on;
     get: function get() {
       return this.events.trigger;
     },
