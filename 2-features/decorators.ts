@@ -1,4 +1,5 @@
 // basic class
+@classDecorator
 class Boat {
   // @testDecorator
   color: string = `red`;
@@ -10,9 +11,12 @@ class Boat {
 
   // adding a decorator to a function
   @logError(`bingus`)
-  pilot(): void {
-    throw new Error();
-    console.log(`swish`);
+  pilot(@paramDecorator speed: string): void {
+    if (speed === 'high') {
+      console.log(`swish`);
+    } else {
+      console.log(`nothing`);
+    }
   }
 }
 
@@ -49,6 +53,16 @@ function logError(errorMessage: string) {
   };
 }
 
+// parameter decorator
+function paramDecorator(target: any, key: string, index: number) {
+  console.log(target, key, index);
+}
+
+// class decorator
+function classDecorator(constructor: typeof Boat) {
+  console.log(constructor);
+}
+
 function testDecorator(t: any, k: string) {
   console.log('Target', t);
   console.log('Key', k);
@@ -74,5 +88,5 @@ function testDecorator(t: any, k: string) {
  * Think of decorators as closures, or functions encapsulating the root function
  */
 
-new Boat().pilot();
-new Boat().color;
+new Boat().pilot('fast');
+// new Boat().color;
