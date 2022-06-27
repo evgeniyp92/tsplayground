@@ -2174,3 +2174,5 @@ printElements<string>(['a', 'b', 'c']);
 ```
 
 ## Application 4 - Dominating web applications with typescript
+
+## Course 8 - Prototypes and Decorators
