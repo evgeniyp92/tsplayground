@@ -6,9 +6,9 @@ interface RequestWithBody extends Request {
 
 const router = express.Router();
 
-router.get('/', (_req: Request, res: Response) => {
-  res.send('hi there');
-});
+// router.get('/', (_req: Request, res: Response) => {
+//   res.send('hi there');
+// });
 
 router.get('/login', (_req: Request, res: Response) => {
   res.send(`
@@ -39,6 +39,7 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
 });
 
 router.get('/', (req: Request, res: Response) => {
+  // if theres a session and the session has loggedIn
   if (req.session && req.session.loggedIn) {
     res.send(`
 			<div>
@@ -54,6 +55,11 @@ router.get('/', (req: Request, res: Response) => {
 			</div>
 		`);
   }
+});
+
+router.get('/logout', (req: Request, res: Response) => {
+  req.session = undefined;
+  res.redirect('/');
 });
 
 export { router };

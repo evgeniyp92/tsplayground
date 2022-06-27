@@ -7,9 +7,9 @@ exports.router = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 exports.router = router;
-router.get('/', (_req, res) => {
-    res.send('hi there');
-});
+// router.get('/', (_req: Request, res: Response) => {
+//   res.send('hi there');
+// });
 router.get('/login', (_req, res) => {
     res.send(`
 		<form method="POST">
@@ -38,6 +38,7 @@ router.post('/login', (req, res) => {
     }
 });
 router.get('/', (req, res) => {
+    // if theres a session and the session has loggedIn
     if (req.session && req.session.loggedIn) {
         res.send(`
 			<div>
@@ -54,4 +55,8 @@ router.get('/', (req, res) => {
 			</div>
 		`);
     }
+});
+router.get('/logout', (req, res) => {
+    req.session = undefined;
+    res.redirect('/');
 });
