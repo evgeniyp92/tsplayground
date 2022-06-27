@@ -5,6 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = __importDefault(require("express"));
+function requireAuth(req, res, next) {
+    if (req.session && req.session.loggedIn === true) {
+        return next();
+    }
+    res.status(403).send(`Not permitted`);
+}
 const router = express_1.default.Router();
 exports.router = router;
 // router.get('/', (_req: Request, res: Response) => {
@@ -59,4 +65,7 @@ router.get('/', (req, res) => {
 router.get('/logout', (req, res) => {
     req.session = undefined;
     res.redirect('/');
+});
+router.get('/protected', requireAuth, (_req, res) => {
+    res.send(`Welcome to protected route, logged in user`);
 });
