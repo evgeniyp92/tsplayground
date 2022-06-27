@@ -14,7 +14,11 @@ class Boat {
   }
 }
 
-function logError(target: any, key: string): void {
+function logError(
+  target: any,
+  key: string,
+  descriptor: PropertyDescriptor
+): void {
   console.log(target);
   console.log(key);
 }
@@ -26,4 +30,10 @@ function logError(target: any, key: string): void {
  * Second arg is the key of the property/method/accessor
  * Third arg is the property descriptor
  * Decorators are applied when code for the class is ran, not at instantiation
+ *
+ * Property descriptors describe key properties for methods
+ * Writable - whether or not the property can be changed
+ * Enumerable - whether or not this propert can get looped over by a forin
+ * Value - current value
+ * Configurable - Definition can be changed and property can be deleted
  */
