@@ -1,8 +1,9 @@
 // basic class
 class Boat {
-  @testDecorator
+  // @testDecorator
   color: string = `red`;
 
+  @testDecorator
   get formattedColor(): string {
     return `This boats color is ${this.color}`;
   }
