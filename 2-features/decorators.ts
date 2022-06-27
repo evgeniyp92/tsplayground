@@ -7,23 +7,25 @@ class Boat {
   }
 
   // adding a decorator to a function
-  @logError
+  @logError(`bingus`)
   pilot(): void {
     throw new Error();
     console.log(`swish`);
   }
 }
 
-function logError(
-  _target: any,
-  _key: string,
-  descriptor: PropertyDescriptor
-): void {
-  // console.log(target);
-  // console.log(key);
-  // console.log(descriptor);
+// decorator factory - function that returns a decorator
+function logError(errorMessage: string) {
+  return function (
+    _target: any,
+    _key: string,
+    descriptor: PropertyDescriptor
+  ): void {
+    // console.log(target);
+    // console.log(key);
+    // console.log(descriptor);
 
-  /**
+    /**
  * { pilot: [Function (anonymous)] },
 	 pilot,
 	{
@@ -34,13 +36,14 @@ function logError(
 	}	
  */
 
-  const method = descriptor.value;
-  descriptor.value = function () {
-    try {
-      method();
-    } catch (e) {
-      console.log(`oops`);
-    }
+    const method = descriptor.value;
+    descriptor.value = function () {
+      try {
+        method();
+      } catch (e) {
+        console.log(errorMessage);
+      }
+    };
   };
 }
 
@@ -57,6 +60,8 @@ function logError(
  * Enumerable - whether or not this propert can get looped over by a forin
  * Value - current value
  * Configurable - Definition can be changed and property can be deleted
+ *
+ * Think of decorators as closures, or functions encapsulating the root function
  */
 
 new Boat().pilot();
