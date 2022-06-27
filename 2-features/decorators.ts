@@ -15,12 +15,33 @@ class Boat {
 }
 
 function logError(
-  target: any,
-  key: string,
+  _target: any,
+  _key: string,
   descriptor: PropertyDescriptor
 ): void {
-  console.log(target);
-  console.log(key);
+  // console.log(target);
+  // console.log(key);
+  // console.log(descriptor);
+
+  /**
+ * { pilot: [Function (anonymous)] },
+	 pilot,
+	{
+		value: [Function (anonymous)],
+		writable: true,
+		enumerable: true,
+		configurable: true
+	}	
+ */
+
+  const method = descriptor.value;
+  descriptor.value = function () {
+    try {
+      method();
+    } catch (e) {
+      console.log(`oops`);
+    }
+  };
 }
 
 // Decorators on a property, method or accessor
@@ -37,3 +58,5 @@ function logError(
  * Value - current value
  * Configurable - Definition can be changed and property can be deleted
  */
+
+new Boat().pilot();
