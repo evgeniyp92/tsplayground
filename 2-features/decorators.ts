@@ -1,5 +1,6 @@
 // basic class
 class Boat {
+  @testDecorator
   color: string = `red`;
 
   get formattedColor(): string {
@@ -47,6 +48,14 @@ function logError(errorMessage: string) {
   };
 }
 
+function testDecorator(t: any, k: string) {
+  console.log('Target', t);
+  console.log('Key', k);
+  console.log(t[k]); // wont work
+  // since only methods are hard defined in the class, we cant access instance properties
+  // hence we cant get access to properties in decorators
+}
+
 // Decorators on a property, method or accessor
 
 /*
@@ -65,3 +74,4 @@ function logError(errorMessage: string) {
  */
 
 new Boat().pilot();
+new Boat().color;
