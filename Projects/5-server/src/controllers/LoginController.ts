@@ -1,12 +1,13 @@
-import { Request, Response, Router, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { get } from './decorators/routes';
+import { controller } from './decorators/controller';
 
 // define controller decorator with root route
-@controller('/')
+@controller('/auth')
 class LoginController {
   // define http method and route decorator and function afterwards
   @get('/login')
-  getLogin(req: Request, res: Response): void {
+  getLogin(_req: Request, res: Response): void {
     res.send(`
 		<form method="POST">
 			<div>
