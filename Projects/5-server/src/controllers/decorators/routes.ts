@@ -1,10 +1,16 @@
 import 'reflect-metadata';
 import { Methods } from './Methods';
 import { MetadataKeys } from './MetadataKeys';
+import { RequestHandler } from 'express';
+
+// interface to make it so that only route handlers can use the decorator
+interface RouteHandlerDescriptor extends PropertyDescriptor {
+  value?: RequestHandler;
+}
 
 export function routeBinder(method: string) {
   return function (path: string) {
-    return function (target: any, key: string, _desc: PropertyDescriptor) {
+    return function (target: any, key: string, desc: RouteHandlerDescriptor) {
       // set metadata on the thing being decorated
       Reflect.defineMetadata(MetadataKeys.Path, path, target, key);
       Reflect.defineMetadata(MetadataKeys.Method, method, target, key);

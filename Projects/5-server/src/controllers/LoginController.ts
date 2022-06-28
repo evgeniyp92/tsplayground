@@ -4,6 +4,11 @@ import { get, controller, post, bodyValidator } from './decorators';
 // define controller decorator with root route
 @controller('/auth')
 class LoginController {
+  // @get('/') // won't chooch
+  // add(a: number, b: number): number {
+  //   return a + b;
+  // }
+
   // define http method and route decorator and function afterwards
   @get('/login')
   getLogin(_req: Request, res: Response): void {

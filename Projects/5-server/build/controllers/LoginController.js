@@ -14,6 +14,10 @@ var decorators_1 = require("./decorators");
 var LoginController = /** @class */ (function () {
     function LoginController() {
     }
+    // @get('/') // won't chooch
+    // add(a: number, b: number): number {
+    //   return a + b;
+    // }
     // define http method and route decorator and function afterwards
     LoginController.prototype.getLogin = function (_req, res) {
         res.send("\n\t\t<form method=\"POST\">\n\t\t\t<div>\n\t\t\t\t<label>Email</label>\n\t\t\t\t<input name=\"email\" />\n\t\t\t</div>\n\t\t\t<div>\n\t\t\t\t<label>Password</label>\n\t\t\t\t<input name=\"password\" type=\"password\" />\n\t\t\t</div>\n\t\t\t<button>Submit</button>\n\t\t</form>\n\t");

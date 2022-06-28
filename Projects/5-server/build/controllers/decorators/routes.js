@@ -6,7 +6,7 @@ var Methods_1 = require("./Methods");
 var MetadataKeys_1 = require("./MetadataKeys");
 function routeBinder(method) {
     return function (path) {
-        return function (target, key, _desc) {
+        return function (target, key, desc) {
             // set metadata on the thing being decorated
             Reflect.defineMetadata(MetadataKeys_1.MetadataKeys.Path, path, target, key);
             Reflect.defineMetadata(MetadataKeys_1.MetadataKeys.Method, method, target, key);
