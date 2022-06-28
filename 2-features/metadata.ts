@@ -26,3 +26,27 @@ console.log(height);
 Reflect.defineMetadata('note', 'hello there', plane, 'color');
 const otherNote = Reflect.getMetadata('note', plane, 'color');
 console.log(otherNote);
+
+/**
+ * Practical use
+ */
+
+class Plane {
+  color: string = 'red';
+
+  // marking the function to attach metadata
+  @markFunction
+  public fly(): void {
+    console.log('vrrrrr');
+  }
+}
+
+// defining a decorator that applies metadata
+function markFunction(target: Plane, key: string) {
+  Reflect.defineMetadata('secret', 'hello', target, key);
+}
+
+// acessing the metadata
+const secret = Reflect.getMetadata('secret', Plane.prototype, 'fly');
+
+console.log(secret); // hello
