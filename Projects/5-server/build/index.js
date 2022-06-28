@@ -16,3 +16,4 @@ app.use(AppRouter_1.AppRouter.getInstance());
 app.listen(3000, function () {
     console.log("server listening on port 3000");
 });
+//  If you're reading this, this is a reimplementation of Ts.ED, which you should just use instead
