@@ -22,7 +22,8 @@ function controller(routePrefix) {
             // read the set path
             var path = Reflect.getMetadata(MetadataKeys_1.MetadataKeys.Path, target.prototype, key);
             var method = Reflect.getMetadata(MetadataKeys_1.MetadataKeys.Method, target.prototype, key);
-            var middlewares = Reflect.getMetadata(MetadataKeys_1.MetadataKeys.Middleware, target, key) || [];
+            var middlewares = Reflect.getMetadata(MetadataKeys_1.MetadataKeys.Middleware, target.prototype, key) ||
+                [];
             if (path) {
                 router[method].apply(router, __spreadArray(__spreadArray([routePrefix + path], middlewares, false), [routeHandler], false));
             }
