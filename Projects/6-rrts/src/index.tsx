@@ -12,6 +12,11 @@ interface AppProps {
 //   counter: number;
 // }
 
+// example of a functional component
+// const App = (props: AppProps): JSX.Element => {
+//   return <div>{props.color}</div>;
+// };
+
 class App extends Component<AppProps> {
   // annoying, finicky way of setting up state
   // constructor(props: AppProps) {
@@ -44,5 +49,5 @@ class App extends Component<AppProps> {
 
 const container = document.getElementById('root');
 if (container) {
-  createRoot(container).render(<App />);
+  createRoot(container).render(<App color="red" />);
 }
