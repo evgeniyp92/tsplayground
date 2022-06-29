@@ -2,12 +2,26 @@ import { Component } from 'react';
 import { createRoot } from 'react-dom/client';
 
 // Always describe the structure of props with an interface above the component
+// You have to override the default, readonly empty objects
 interface AppProps {
   color?: string;
 }
 
+// Would have been passed as the second generic
+// interface AppState {
+//   counter: number;
+// }
+
 class App extends Component<AppProps> {
-  state: { counter: number } = { counter: 0 };
+  // annoying, finicky way of setting up state
+  // constructor(props: AppProps) {
+  //   super(props);
+
+  //   this.state = { counter: 0 };
+  // }
+
+  // simpler way of setting up state, via overriding
+  state = { counter: 0 };
 
   onIncrement = (): void => {
     this.setState({ counter: this.state.counter + 1 });
