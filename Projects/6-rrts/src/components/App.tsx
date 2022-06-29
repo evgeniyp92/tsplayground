@@ -79,3 +79,5 @@ const mapStateToProps = (state: StoreState): { todos: Todo[] } => {
 const mapDispatchToProps = { fetchTodos, deleteTodo };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+// bingus
