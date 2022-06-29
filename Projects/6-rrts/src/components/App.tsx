@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Todo, fetchTodos, deleteTodo } from '../actions';
 import { StoreState } from '../reducers';
 
+// describing the structure of props
 interface AppProps {
   todos: Todo[];
   fetchTodos: Function;
   deleteTodo: typeof deleteTodo;
 }
 
+// describing the structure of state
 interface AppState {
   fetching: boolean;
 }
