@@ -15,6 +15,11 @@ export interface FetchTodosAction {
   payload: Todo[];
 }
 
+export interface DeleteTodoAction {
+  type: ActionTypes.DeleteTodo;
+  payload: number;
+}
+
 export const fetchTodos = () => {
   return async (dispatch: Dispatch) => {
     // telling axios what to expect to get back
@@ -26,5 +31,12 @@ export const fetchTodos = () => {
       type: ActionTypes.FetchTodos,
       payload: res.data,
     });
+  };
+};
+
+export const deleteTodo = (id: number): DeleteTodoAction => {
+  return {
+    type: ActionTypes.DeleteTodo,
+    payload: id,
   };
 };
